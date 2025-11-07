@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>群益中山交易人格測驗</title>
+<style>
+body { font-family:'Microsoft JhengHei',sans-serif; background:#f0f2f5; margin:0; padding:0;}
+header { background:#0a3d62; color:white; padding:15px; text-align:center; display:flex; align-items:center; justify-content:center;}
+header img { height:50px; margin-right:15px; }
+header h1 { font-size:28px; }
+.container { max-width:750px; margin:30px auto; background:white; padding:30px; border-radius:15px; box-shadow:0 10px 25px rgba(0,0,0,0.1);}
+.question { font-size:20px; margin-bottom:20px; font-weight:500; }
+.options button { display:block; width:100%; margin:10px 0; padding:12px; font-size:16px; border:none; border-radius:10px; cursor:pointer; background:#3498db; color:white; transition:0.3s; }
+.options button:hover { background:#2c3e50; }
+.progress-bar { width:100%; background:#dcdde1; border-radius:10px; overflow:hidden; margin-bottom:10px; height:22px; }
+.progress { height:22px; width:0%; background:#27ae60; text-align:center; color:white; line-height:22px; font-weight:bold; transition:0.3s; }
+.start-btn { background:#e67e22; color:white; padding:15px 35px; font-size:18px; border:none; border-radius:12px; cursor:pointer; transition:0.3s; }
+.start-btn:hover { background:#d35400; }
+.nav-btns { display:flex; justify-content:space-between; margin-top:20px; }
+.nav-btns button { padding:10px 20px; font-size:16px; border:none; border-radius:8px; cursor:pointer; background:#34495e; color:white; transition:0.3s; }
+.nav-btns button:hover { background:#2c3e50; }
+.result { text-align:center; padding:20px; background:#ecf0f1; border-radius:15px; }
+.result h2 { font-size:28px; margin-bottom:10px; color:#2c3e50; }
+.result p { font-size:18px; margin-bottom:20px; color:#34495e; }
+canvas { margin:20px auto; display:block; max-width:350px; }
+#chart-desc { text-align:left; margin-top:15px; }
+#chart-desc ul { list-style:none; padding:0; }
+#chart-desc li { margin-bottom:8px; font-size:16px; }
+#chart-desc b { color:#2c3e50; }
+#chart-bars { display:flex; justify-content:space-around; margin-top:20px; }
+.bar { width:18%; text-align:center; }
+.bar-inner { height:150px; border-radius:12px 12px 0 0; background:#3498db; display:flex; align-items:flex-end; justify-content:center; color:white; font-weight:bold; transition:0.8s; }
+.footer { margin-top:30px; font-size:14px; color:#7f8c8d; }
+</style>
+</head>
+<body>
+<header>
+    <img src="C:\Users\User\Desktop\網頁\Images\LOGO.png" alt="群益Logo">
+    <h1>群益中山交易人格測驗</h1>
+</header>
+
+<div class="container" id="quiz-container">
+    <div id="start-screen" style="text-align:center;">
+        <h2>歡迎參加群益中山交易人格測驗！</h2>
+        <button class="start-btn" onclick="startQuiz()">開始測驗</button>
+    </div>
+
+    <div id="quiz" style="display:none;">
+        <div class="progress-bar">
+            <div class="progress" id="progress">0%</div>
+        </div>
+        <div class="question" id="question-text"></div>
+        <div class="options" id="options"></div>
+        <div class="nav-btns">
+            <button id="prev-btn" onclick="prevQuestion()">上一題</button>
+            <button id="next-btn" onclick="nextQuestion()" style="display:none;">下一題</button>
+        </div>
+    </div>
+
+    <div id="result" style="display:none;" class="result">
+        <h2 id="mbti-type"></h2>
+        <p id="mbti-desc"></p>
+        <canvas id="pieChart" width="350" height="350"></canvas>
+        <div id="chart-desc"></div>
+        <div id="chart-bars"></div>
+        <div class="footer">@zoecreation</div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const questions = [
+    {q:"1. 周末收到派對邀約，你會？", a:["當然去！玩樂也是放鬆","不想去，想到社交很累"], dim:"EI"},
+    {q:"2. 派對新朋友滔滔不絕，你會？", a:["分享自己","保持戒備"], dim:"EI"},
+    {q:"3. 好友抽到免費出國大獎，你會？", a:["先看行事曆","立刻收拾行李"], dim:"JP"},
+    {q:"4. 遊樂園約會，你會？", a:["做好路線規劃","重點是相處，隨性玩"], dim:"JP"},
+    {q:"5. 曖昧對象約會，告白時機？", a:["把握機會衝一波","回去好好規劃"], dim:"JP"},
+    {q:"6. 深山民宿度假，你會？", a:["覺得久住會無聊","覺得好適合一個人"], dim:"EI"},
+    {q:"7. 朋友邀高級餐廳，你會？", a:["婉拒","赴約"], dim:"JP"},
+    {q:"8. 周末心情受影響，你會？", a:["約朋友聊聊","獨自整理"], dim:"EI"},
+    {q:"9. 聚會敏感話題，你會？", a:["先思考再說","直來直往反駁"], dim:"TF"},
+    {q:"10. 家人出門獨處，你會？", a:["耍廢享受安靜","安排出門計畫"], dim:"JP"},
+    {q:"11. 陰雨早晨音樂選擇？", a:["隨機播放","仔細選擇適合的歌"], dim:"SN"},
+    {q:"12. 尾牙最大獎，旅遊偏好？", a:["加拿大湖邊小屋","巴黎文藝之旅"], dim:"SN"},
+    {q:"13. 喝醉回家發現遺失，你最怕？", a:["卡夾","紀念手飾"], dim:"TF"},
+    {q:"14. 聚餐被問餐點口味，你會？", a:["描述整體口感","直覺回答好吃"], dim:"TF"},
+    {q:"15. 出國旅行規劃，你會？", a:["整理兩人想去景點","詢問後篩選"], dim:"JP"},
+    {q:"16. 加班回家見鄰居被抬上救護車，你會？", a:["加入幫忙","獨自繞過"], dim:"EI"},
+    {q:"17. 好友想買昂貴精品療傷，你會？", a:["鼓勵陪同挑選","理性勸退"], dim:"TF"},
+    {q:"18. 展場吸引你停下腳步的？", a:["AI高科技","藝術新作"], dim:"SN"},
+    {q:"19. 老闆表揚你，你會？", a:["誠懇稱讚","肯定執行能力"], dim:"TF"},
+    {q:"20. 餐廳臨時關閉，你會？", a:["拿plan B聯絡","隨機探索"], dim:"JP"},
+    {q:"21. 抑鬱事件，你會？", a:["發社群抒發","在心裡消化"], dim:"EI"},
+];
+
+const mbtiData = {
+    "ISTJ":"嚴謹、有紀律，偏好計畫性交易，追求安全穩定。",
+    "ISFJ":"謹慎、細心，會仔細分析市場資訊，避免衝動操作。",
+    "INFJ":"前瞻性強，注重策略與風險控制，喜歡深入研究市場趨勢。",
+    "INTJ":"策略型思維，善於制定長期交易計畫，注重效率與風險管理。",
+    "ISTP":"靈活、實際，喜歡即時反應市場變化，偏好短線操作。",
+    "ISFP":"保守、穩定，注重直覺與感受，喜歡低風險交易。",
+    "INFP":"理想主義、獨立思考，喜歡探索新市場或新策略。",
+    "INTP":"分析能力強，喜歡研究複雜數據與策略，追求創新交易方法。",
+    "ESTP":"行動派，快速判斷市場訊號，偏好即時交易或波段操作。",
+    "ESFP":"外向、靈活，喜歡跟市場互動，偏好波段與短線操作。",
+    "ENFP":"創意十足，善於捕捉新興市場機會，喜歡多元策略。",
+    "ENTP":"機智、好挑戰，喜歡創新交易工具與衍生性商品操作。",
+    "ESTJ":"架構清晰，善於規劃，偏好藍籌、穩健型交易。",
+    "ESFJ":"社交型，會參考他人資訊與市場氛圍，傾向保守操作。",
+    "ENFJ":"策略型領導，會綜合資訊決策，喜歡分散布局降低風險。",
+    "ENTJ":"果斷、目標導向，喜歡系統化分析，善於掌控交易節奏。"
+};
+
+let current=0;
+let answers=[];
+
+function startQuiz(){
+    document.getElementById("start-screen").style.display="none";
+    document.getElementById("quiz").style.display="block";
+    showQuestion();
+}
+
+function showQuestion(){
+    const q=questions[current];
+    document.getElementById("question-text").textContent=q.q;
+    const optionsDiv=document.getElementById("options");
+    optionsDiv.innerHTML="";
+    q.a.forEach((opt,index)=>{
+        const btn=document.createElement("button");
+        btn.textContent=opt;
+        btn.onclick=()=>selectAnswer(index);
+        optionsDiv.appendChild(btn);
+    });
+    document.getElementById("prev-btn").style.display = current>0?"inline-block":"none";
+    document.getElementById("next-btn").style.display="none";
+    updateProgress();
+}
+
+function selectAnswer(choice){
+    answers[current]=choice;
+    if(current<questions.length-1){
+        current++;
+        showQuestion();
+    }else{
+        showResult();
+    }
+}
+
+function prevQuestion(){
+    if(current>0){
+        current--;
+        showQuestion();
+    }
+}
+
+function nextQuestion(){
+    if(current<questions.length-1){
+        current++;
+        showQuestion();
+    }
+}
+
+function updateProgress(){
+    const percent=Math.round((current/questions.length)*100);
+    const progressBar=document.getElementById("progress");
+    progressBar.style.width=percent+"%";
+    progressBar.textContent=percent+"%";
+}
+
+function showResult(){
+    document.getElementById("quiz").style.display="none";
+    const resDiv=document.getElementById("result");
+    resDiv.style.display="block";
+
+    const dims = {EI:0,SN:0,TF:0,JP:0};
+    questions.forEach((q,i)=>{
+        dims[q.dim] += answers[i];
+    });
+
+    const mbti = 
+        (dims.EI>Math.floor(questions.filter(q=>q.dim=="EI").length/2)?"I":"E") +
+        (dims.SN>Math.floor(questions.filter(q=>q.dim=="SN").length/2)?"N":"S") +
+        (dims.TF>Math.floor(questions.filter(q=>q.dim=="TF").length/2)?"F":"T") +
+        (dims.JP>Math.floor(questions.filter(q=>q.dim=="JP").length/2)?"P":"J");
+
+    document.getElementById("mbti-type").textContent="你的 MBTI: "+mbti;
+    document.getElementById("mbti-desc").textContent=mbtiData[mbti];
+
+    const pieData = ["EI","SN","TF","JP"].map(dim=>{
+        const arr = questions.filter(q=>q.dim==dim).map((q,i)=>answers[i]);
+        if(arr.length==0) return 0;
+        return Math.round((arr.filter(v=>v==1).length/arr.length)*100);
+    });
+
+    const ctx=document.getElementById("pieChart").getContext("2d");
+    new Chart(ctx,{
+        type:'pie',
+        data:{
+            labels:['E/I','S/N','T/F','J/P'],
+            datasets:[{
+                data:pieData,
+                backgroundColor:['#3498db','#2ecc71','#f1c40f','#e67e22']
+            }]
+        },
+        options:{
+            responsive:true,
+            plugins:{
+                legend:{position:'bottom'},
+                tooltip:{callbacks:{label:function(context){return context.label+": "+context.raw+"%";}}}
+            },
+            animation:{animateScale:true, animateRotate:true, duration:1500}
+        }
+    });
+
+    // 圓形圖解說
+    const descDiv = document.getElementById("chart-desc");
+    const labels = ['E/I','S/N','T/F','J/P'];
+    const meanings = [
+        'E/I: 外向 (E) / 內向 (I)',
+        'S/N: 感覺 (S) / 直覺 (N)',
+        'T/F: 思考 (T) / 情感 (F)',
+        'J/P: 判斷 (J) / 知覺 (P)'
+    ];
+    let html = "<h3>圖表解說：</h3><ul>";
+    pieData.forEach((val,i)=>{
+        html += `<li><b>${labels[i]}</b> (${meanings[i]}): <b>${val}%</b></li>`;
+    });
+    html += "</ul>";
+    descDiv.innerHTML = html;
+
+    // 彩色百分比條列
+    const barsDiv = document.getElementById("chart-bars");
+    barsDiv.innerHTML="";
+    pieData.forEach((val,i)=>{
+        const bar = document.createElement("div");
+        bar.className="bar";
+        const inner = document.createElement("div");
+        inner.className="bar-inner";
+        inner.style.height=val+"%";
+        inner.style.backgroundColor=['#3498db','#2ecc71','#f1c40f','#e67e22'][i];
+        inner.textContent=val+"%";
+        bar.appendChild(inner);
+        barsDiv.appendChild(bar);
+    });
+}
+</script>
+</body>
+</html>
