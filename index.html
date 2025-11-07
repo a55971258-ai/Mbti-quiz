@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<title>群益中山交易人格測驗</title>
+<title>群益中山 - 投資人格測驗</title>
 <style>
 body { font-family:'Microsoft JhengHei',sans-serif; background:#f0f2f5; margin:0; padding:0;}
 header { background:#0a3d62; color:white; padding:15px; text-align:center; display:flex; align-items:center; justify-content:center;}
@@ -26,22 +26,25 @@ canvas { margin:20px auto; display:block; max-width:350px; }
 #chart-desc { text-align:left; margin-top:15px; }
 #chart-desc ul { list-style:none; padding:0; }
 #chart-desc li { margin-bottom:8px; font-size:16px; }
-#chart-desc b { color:#2c3e50; }
-#chart-bars { display:flex; justify-content:space-around; margin-top:20px; }
-.bar { width:18%; text-align:center; }
-.bar-inner { height:150px; border-radius:12px 12px 0 0; background:#3498db; display:flex; align-items:flex-end; justify-content:center; color:white; font-weight:bold; transition:0.8s; }
+#chart-bars { display:block; margin-top:20px; }
+.bar-label { font-weight:bold; margin-bottom:5px; display:flex; justify-content:space-between; }
+.bar-container { display:flex; height:30px; border-radius:8px; overflow:hidden; margin-bottom:15px; }
+.bar-segment { display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; }
 .footer { margin-top:30px; font-size:14px; color:#7f8c8d; }
+.result-btns { display:flex; justify-content:center; gap:15px; margin-bottom:20px; }
+.result-btns button { padding:10px 20px; font-size:16px; border:none; border-radius:8px; cursor:pointer; background:#e67e22; color:white; transition:0.3s; }
+.result-btns button:hover { background:#d35400; }
 </style>
 </head>
 <body>
 <header>
-    <img src="https://github.com/a55971258-ai/Mbti-quiz/blob/0c6ee1d3f146e89b37cb1cdbbc3ff7d8dafee204/logo.png" alt="群益Logo">
-    <h1>群益中山交易人格測驗</h1>
+    <img src="https://github.com/a55971258-ai/Mbti-quiz/blob/c40c71704c67d25d94d576aeef4c1316ac8b0bc3/logo.png?raw=true" alt="群益Logo">
+    <h1>群益中山 - 投資人格測驗</h1>
 </header>
 
 <div class="container" id="quiz-container">
     <div id="start-screen" style="text-align:center;">
-        <h2>歡迎參加群益中山交易人格測驗！</h2>
+        <h2>歡迎參加群益中山投資人格測驗！</h2>
         <button class="start-btn" onclick="startQuiz()">開始測驗</button>
     </div>
 
@@ -60,10 +63,17 @@ canvas { margin:20px auto; display:block; max-width:350px; }
     <div id="result" style="display:none;" class="result">
         <h2 id="mbti-type"></h2>
         <p id="mbti-desc"></p>
+
+        <div class="result-btns">
+            <button onclick="restartQuiz()">再做一次</button>
+            <button onclick="downloadResult()">下載結果</button>
+            <button onclick="openLine()">傳送至Line@</button>
+        </div>
+
         <canvas id="pieChart" width="350" height="350"></canvas>
         <div id="chart-desc"></div>
         <div id="chart-bars"></div>
-        <div class="footer">@zoecreation</div>
+        <div class="footer">以上測驗結果僅供參考！</div>
     </div>
 </div>
 
@@ -173,24 +183,38 @@ function showResult(){
     const resDiv=document.getElementById("result");
     resDiv.style.display="block";
 
-    const dims = {EI:0,SN:0,TF:0,JP:0};
+    // 計算各維度分數
+    const dims = {E:0,I:0,S:0,N:0,T:0,F:0,J:0,P:0};
     questions.forEach((q,i)=>{
-        dims[q.dim] += answers[i];
+        const val = answers[i];
+        switch(q.dim){
+            case "EI": val===0?dims.E++:dims.I++; break;
+            case "SN": val===0?dims.S++:dims.N++; break;
+            case "TF": val===0?dims.T++:dims.F++; break;
+            case "JP": val===0?dims.J++:dims.P++; break;
+        }
     });
 
     const mbti = 
-        (dims.EI>Math.floor(questions.filter(q=>q.dim=="EI").length/2)?"I":"E") +
-        (dims.SN>Math.floor(questions.filter(q=>q.dim=="SN").length/2)?"N":"S") +
-        (dims.TF>Math.floor(questions.filter(q=>q.dim=="TF").length/2)?"F":"T") +
-        (dims.JP>Math.floor(questions.filter(q=>q.dim=="JP").length/2)?"P":"J");
+        (dims.E>=dims.I?"E":"I") +
+        (dims.S>=dims.N?"S":"N") +
+        (dims.T>=dims.F?"T":"F") +
+        (dims.J>=dims.P?"J":"P");
 
     document.getElementById("mbti-type").textContent="你的 MBTI: "+mbti;
     document.getElementById("mbti-desc").textContent=mbtiData[mbti];
 
+    // Pie Chart
     const pieData = ["EI","SN","TF","JP"].map(dim=>{
-        const arr = questions.filter(q=>q.dim==dim).map((q,i)=>answers[i]);
-        if(arr.length==0) return 0;
-        return Math.round((arr.filter(v=>v==1).length/arr.length)*100);
+        let a,b;
+        switch(dim){
+            case "EI": a=dims.E; b=dims.I; break;
+            case "SN": a=dims.S; b=dims.N; break;
+            case "TF": a=dims.T; b=dims.F; break;
+            case "JP": a=dims.J; b=dims.P; break;
+        }
+        const total = a+b;
+        return total>0 ? Math.round((b/total)*100) : 50;
     });
 
     const ctx=document.getElementById("pieChart").getContext("2d");
@@ -213,7 +237,7 @@ function showResult(){
         }
     });
 
-    // 圓形圖解說
+    // 圖表解說
     const descDiv = document.getElementById("chart-desc");
     const labels = ['E/I','S/N','T/F','J/P'];
     const meanings = [
@@ -222,28 +246,56 @@ function showResult(){
         'T/F: 思考 (T) / 情感 (F)',
         'J/P: 判斷 (J) / 知覺 (P)'
     ];
-    let html = "<h3>圖表解說：</h3><ul>";
-    pieData.forEach((val,i)=>{
-        html += `<li><b>${labels[i]}</b> (${meanings[i]}): <b>${val}%</b></li>`;
+    let html = "<h3>圖表解說（比例顯示如下）：</h3><ul>";
+    labels.forEach((label,i)=>{
+        html += `<li><b>${label}</b> (${meanings[i]})</li>`;
     });
     html += "</ul>";
     descDiv.innerHTML = html;
 
-    // 彩色百分比條列
+    // 橫向條形圖
     const barsDiv = document.getElementById("chart-bars");
     barsDiv.innerHTML="";
-    pieData.forEach((val,i)=>{
+    const horizontalPairs = [['E','I'], ['S','N'], ['T','F'], ['J','P']];
+    const colors = {E:'#3498db', I:'#2980b9', S:'#2ecc71', N:'#27ae60', T:'#f1c40f', F:'#f39c12', J:'#e67e22', P:'#d35400'};
+    horizontalPairs.forEach(([a,b])=>{
+        const total = dims[a]+dims[b];
+        const aPct = total>0 ? Math.round((dims[a]/total)*100) : 50;
+        const bPct = 100 - aPct;
+
+        const labelDiv = document.createElement("div");
+        labelDiv.className="bar-label";
+        labelDiv.textContent = `${a}: ${aPct}%   ${b}: ${bPct}%`;
+        barsDiv.appendChild(labelDiv);
+
         const bar = document.createElement("div");
-        bar.className="bar";
-        const inner = document.createElement("div");
-        inner.className="bar-inner";
-        inner.style.height=val+"%";
-        inner.style.backgroundColor=['#3498db','#2ecc71','#f1c40f','#e67e22'][i];
-        inner.textContent=val+"%";
-        bar.appendChild(inner);
+        bar.className="bar-container";
+
+        const barA = document.createElement("div");
+        barA.className="bar-segment";
+        barA.style.width = aPct + "%"; barA.style.backgroundColor = colors[a]; barA.textContent = `${aPct}%`;
+
+        const barB = document.createElement("div");
+        barB.className="bar-segment";
+        barB.style.width = bPct + "%"; barB.style.backgroundColor = colors[b]; barB.textContent = `${bPct}%`;
+
+        bar.appendChild(barA); bar.appendChild(barB);
         barsDiv.appendChild(bar);
     });
 }
+
+// 按鈕功能
+function restartQuiz(){ location.reload(); }
+function downloadResult(){
+    html2canvas(document.getElementById("result")).then(canvas=>{
+        const link = document.createElement("a");
+        link.download = "MBTI_Result.png";
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+}
+function openLine(){ window.open("https://lin.ee/FmPO1Vz","_blank"); }
 </script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </body>
 </html>
