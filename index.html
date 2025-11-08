@@ -3,48 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <title>群益中山 - 投資人格測驗</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> <style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
 /* --- RWD 字體與基礎設定優化 START --- */
-body { 
-    font-family:'Microsoft JhengHei',sans-serif; 
-    background:#f0f2f5; 
-    margin:0; 
+body {
+    font-family:'Microsoft JhengHei',sans-serif;
+    background:#f0f2f5;
+    margin:0;
     padding:0;
-    /* 核心 RWD 字體調整：禁止 iOS/Webkit 自動調整字體大小 */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    /* 基礎字體大小使用相對單位，方便整體縮放 */
-    font-size: 16px; 
+    font-size: 16px;
 }
-header { background:#0a3d62; color:white; padding:15px; text-align:center; display:flex; align-items:center; justify-content:center;}
-header img { height:50px; margin-right:15px; }
-header h1 { font-size:1.75rem; /* 使用 rem 單位 */ }
-.container { 
-    max-width:750px; 
-    margin:30px auto; 
-    background:white; 
-    padding:30px; 
-    border-radius:15px; 
-    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+header {
+    background:#0a3d62;
+    color:white;
+    padding:15px;
+    text-align:center;
+    display:flex; /* 使用 Flexbox */
+    align-items:center; /* 垂直置中 */
+    justify-content:center; /* 水平置中 */
+    flex-wrap: wrap; /* 允許項目換行，防止在小螢幕上溢出 */
 }
+header img {
+    /* 調整為更具響應性的最大高度 */
+    max-height: 45px; /* 稍微縮小以適應更多情況 */
+    height: auto; /* 保持圖片比例 */
+    width: auto; /* 保持圖片比例 */
+    margin-right:15px;
+    /* 新增：在小螢幕下避免 Logo 過大 */
+    flex-shrink: 0; /* 防止 Logo 被擠壓過小 */
+}
+header h1 {
+    font-size:1.75rem;
+    /* 新增：在小螢幕下允許標題文字換行 */
+    flex-shrink: 1; /* 允許標題文字縮小 */
+    min-width: 0; /* 讓文字在 flex item 中可以縮小 */
+    text-overflow: ellipsis; /* 超出部分顯示省略號 */
+    white-space: normal; /* 允許文字換行 */
+}
+
 /* 針對手機螢幕的媒體查詢，縮小 container 的 margin 和 padding */
 @media (max-width: 768px) {
     .container {
         margin: 15px;
         padding: 20px;
     }
-    header h1 {
-        font-size: 1.5rem;
+    header {
+        padding: 10px; /* 縮小 header padding */
     }
-    .question {
-        font-size: 1.1rem !important; /* 問題字體也使用 rem */
+    header img {
+        max-height: 40px; /* 手機上 Logo 稍微小一點 */
+        margin-right: 10px;
+    }
+    header h1 {
+        font-size: 1.3rem; /* 手機上標題字體縮小 */
+        line-height: 1.3; /* 改善換行後的行高 */
     }
 }
 /* --- RWD 字體與基礎設定優化 END --- */
 
 
 .question { font-size:20px; margin-bottom:20px; font-weight:500; }
-.options button { display:block; width:100%; margin:10px 0; padding:12px; font-size:1rem; /* 使用 rem */ border:none; border-radius:10px; cursor:pointer; background:#3498db; color:white; transition:0.3s; }
+.options button { display:block; width:100%; margin:10px 0; padding:12px; font-size:1rem; border:none; border-radius:10px; cursor:pointer; background:#3498db; color:white; transition:0.3s; }
 .options button:hover { background:#2c3e50; }
 .progress-bar { width:100%; background:#dcdde1; border-radius:10px; overflow:hidden; margin-bottom:10px; height:22px; }
 .progress { height:22px; width:0%; background:#27ae60; text-align:center; color:white; line-height:22px; font-weight:bold; transition:0.3s; }
@@ -61,21 +82,19 @@ header h1 { font-size:1.75rem; /* 使用 rem 單位 */ }
 #chart-wrapper {
     max-width: 350px;
     margin: 20px auto;
-    /* 關鍵：Chart.js 需要一個專用容器來控制 RWD */
-    position: relative; 
+    position: relative;
 }
-#pieChart { margin:0; display:block; } 
+#pieChart { margin:0; display:block; }
 
 #chart-desc { text-align:left; margin-top:15px; }
 #chart-desc ul { list-style:none; padding:0; }
 #chart-desc li { margin-bottom:8px; font-size:1rem; }
 #chart-bars { display:block; margin-top:20px; }
-.bar-label { font-weight:bold; margin-bottom:5px; display:flex; justify-content:space-between; font-size:0.9rem; /* 橫條圖標籤字體 */ }
+.bar-label { font-weight:bold; margin-bottom:5px; display:flex; justify-content:space-between; font-size:0.9rem; }
 .bar-container { display:flex; height:30px; border-radius:8px; overflow:hidden; margin-bottom:15px; }
-.bar-segment { display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; /* 修正：將數字百分比內容隱藏，只保留字母 */ font-size: 0.8rem; }
-.bar-segment span.percent-text { display: none; } /* 預設隱藏百分比數字 */
+.bar-segment { display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; font-size: 0.8rem; }
+.bar-segment span.percent-text { display: none; }
 
-/* 確保橫條圖在小螢幕上不會擠壓 */
 @media (max-width: 500px) {
     .bar-segment {
         font-size: 0.7rem;
@@ -121,7 +140,7 @@ header h1 { font-size:1.75rem; /* 使用 rem 單位 */ }
     color: #2c3e50;
 }
 .analysis-group p {
-    font-size: 0.95rem; /* 使用 rem */
+    font-size: 0.95rem;
     margin: 5px 0;
 }
 .analysis-group strong {
@@ -131,7 +150,7 @@ header h1 { font-size:1.75rem; /* 使用 rem 單位 */ }
 </head>
 <body>
 <header>
-    <img src="https://github.com/a55971258-ai/Mbti-quiz/blob/c40c71704c67d25d94d576aeef4c1316ac8b0bc3/logo.png?raw=true" alt="群益Logo">
+    <img src="https://github.com/a55971258-ai/Mbti-quiz/blob/370f467269e7962d5752a4f3715990d45f7c6a8a/logo.png?raw=true" alt="群益Logo">
     <h1>群益中山 - 投資人格測驗</h1>
 </header>
 
@@ -163,10 +182,10 @@ header h1 { font-size:1.75rem; /* 使用 rem 單位 */ }
             <button onclick="openLine()">傳送至Line@</button>
         </div>
 
-        <div id="chart-wrapper"> 
+        <div id="chart-wrapper">
             <canvas id="pieChart" width="350" height="350"></canvas>
         </div>
-        
+
         <div id="chart-desc"></div>
         <div id="chart-bars"></div>
         <div id="investment-analysis" class="analysis-section">
@@ -274,8 +293,8 @@ function showQuestion(){
         const btn=document.createElement("button");
         btn.textContent=opt;
         // 修正：如果已經選擇過，則加上選中樣式
-        if(answers[current] === index) { 
-            btn.style.backgroundColor = '#2c3e50'; 
+        if(answers[current] === index) {
+            btn.style.backgroundColor = '#2c3e50';
         }
         btn.onclick=()=>selectAnswer(index);
         optionsDiv.appendChild(btn);
@@ -291,7 +310,7 @@ function selectAnswer(choice){
     document.querySelectorAll('#options button').forEach((btn, index) => {
         btn.style.backgroundColor = index === choice ? '#2c3e50' : '#3498db';
     });
-    
+
     // 如果是最後一題，直接顯示結果
     if(current===questions.length-1){
         showResult();
@@ -346,7 +365,7 @@ function showResult(){
         }
     });
 
-    const mbti = 
+    const mbti =
         (dims.E>=dims.I?"E":"I") +
         (dims.S>=dims.N?"S":"N") +
         (dims.T>=dims.F?"T":"F") +
@@ -359,7 +378,7 @@ function showResult(){
     if(myPieChart) {
         myPieChart.destroy(); // 銷毀舊圖表，避免重複渲染問題
     }
-    
+
     // 計算 I, N, F, P 的百分比 (I/E+I, N/S+N, F/T+F, P/J+P)
     const pieData = [
         dims.E+dims.I > 0 ? Math.round((dims.I / (dims.E+dims.I)) * 100) : 50, // I
@@ -414,13 +433,13 @@ function showResult(){
     horizontalPairs.forEach(([a,b])=>{
         const total = dims[a]+dims[b];
         // 修正：確保總分不為 0 時才計算百分比
-        const aPct = total>0 ? Math.round((dims[a]/total)*100) : 50; 
+        const aPct = total>0 ? Math.round((dims[a]/total)*100) : 50;
         const bPct = 100 - aPct;
 
         const labelDiv = document.createElement("div");
         labelDiv.className="bar-label";
         // 修正：標籤顯示 E: 60% I: 40%
-        labelDiv.textContent = `${a}: ${aPct}%   ${b}: ${bPct}%`; 
+        labelDiv.textContent = `${a}: ${aPct}%   ${b}: ${bPct}%`;
         barsDiv.appendChild(labelDiv);
 
         const bar = document.createElement("div");
@@ -428,15 +447,15 @@ function showResult(){
 
         const barA = document.createElement("div");
         barA.className="bar-segment";
-        barA.style.width = aPct + "%"; barA.style.backgroundColor = colors[a]; 
-        // 修正：只顯示字母
-        barA.innerHTML = aPct > 5 ? `<span>${a}</span>` : ''; 
+        barA.style.width = aPct + "%"; barA.style.backgroundColor = colors[a];
+        // 修正：只顯示字母 (且在空間足夠時才顯示)
+        barA.innerHTML = aPct > 10 ? `<span>${a}</span>` : ''; /* 調整為百分比大於10才顯示字母 */
 
         const barB = document.createElement("div");
         barB.className="bar-segment";
-        barB.style.width = bPct + "%"; barB.style.backgroundColor = colors[b]; 
-        // 修正：只顯示字母
-        barB.innerHTML = bPct > 5 ? `<span>${b}</span>` : ''; 
+        barB.style.width = bPct + "%"; barB.style.backgroundColor = colors[b];
+        // 修正：只顯示字母 (且在空間足夠時才顯示)
+        barB.innerHTML = bPct > 10 ? `<span>${b}</span>` : ''; /* 調整為百分比大於10才顯示字母 */
 
         bar.appendChild(barA); bar.appendChild(barB);
         barsDiv.appendChild(bar);
@@ -458,13 +477,13 @@ function showResult(){
 }
 
 // 按鈕功能
-function restartQuiz(){ 
+function restartQuiz(){
     // 重新載入前先清理 Chart 實例
     if(myPieChart) {
         myPieChart.destroy();
         myPieChart = null;
     }
-    location.reload(); 
+    location.reload();
 }
 
 function downloadResult(){
