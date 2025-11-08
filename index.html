@@ -34,6 +34,43 @@ canvas { margin:20px auto; display:block; max-width:350px; }
 .result-btns { display:flex; justify-content:center; gap:15px; margin-bottom:20px; }
 .result-btns button { padding:10px 20px; font-size:16px; border:none; border-radius:8px; cursor:pointer; background:#e67e22; color:white; transition:0.3s; }
 .result-btns button:hover { background:#d35400; }
+
+/* 投資人格分析區塊的樣式 */
+.analysis-section {
+    margin-top: 30px;
+    padding: 20px;
+    background: #ffffff; /* 不同的背景色以區分 */
+    border-radius: 10px;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.analysis-section h3 {
+    font-size: 24px;
+    color: #0a3d62;
+    border-bottom: 3px solid #0a3d62;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.analysis-group {
+    margin-bottom: 25px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    line-height: 1.8;
+}
+.analysis-group h4 {
+    font-size: 20px;
+    margin-top: 0;
+    color: #2c3e50;
+}
+.analysis-group p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+.analysis-group strong {
+    color: #e67e22; /* 強調顏色 */
+}
 </style>
 </head>
 <body>
@@ -73,7 +110,44 @@ canvas { margin:20px auto; display:block; max-width:350px; }
         <canvas id="pieChart" width="350" height="350"></canvas>
         <div id="chart-desc"></div>
         <div id="chart-bars"></div>
-        <div class="footer">以上測驗結果僅供參考！@zoecreation</div>
+
+        <div id="investment-analysis" class="analysis-section">
+            <h3>投資人格分析</h3>
+            <div class="analysis-group" data-mbti="INTJ,INTP,ENTJ,ENTP">
+                <h4>📊 分析型（INTJ、INTP、ENTJ、ENTP）</h4>
+                <p>習慣透過數據來判斷投資決策，他們不容易被市場波動影響，喜歡 <strong>有邏輯、有策略</strong> 的投資方式，例如INTJ 可能會選擇 <strong>價值投資</strong>，深入研究企業財報和市場趨勢，再決定是否長期持有。</p>
+                <p>📌 投資風格：理性分析、數據驅動、偏向長線投資。</p>
+                <p>📌 常見投資方式：價值投資、科技股、指數型基金。</p>
+                <p>🔎 投資理財建議：</p>
+                <p>理性與數據驅動的投資方式能有效降低市場情緒對決策的影響，但過度分析可能導致錯失關鍵投資機會；建議建立明確的投資計畫與決策機制，例如設定買賣條件，避免陷入無止境的數據評估，另外可以適時運用定期定額策略，在不影響長線投資邏輯的同時，減少進場時機的壓力，提高投資效率，雖然價值投資與科技股是強項，但也可適度關注市場趨勢與新興產業，以確保資產配置能兼顧穩健與成長性。</p>
+            </div>
+            <div class="analysis-group" data-mbti="INFJ,INFP,ENFJ,ENFP">
+                <h4>🪅 外交型（INFJ、INFP、ENFJ、ENFP）</h4>
+                <p>這類型的投資者希望自己的投資能夠產生積極的社會影響，例如選擇投資 <strong>環保產業、社會企業或永續發展基金</strong>，但是他們有時可能會忽略財務數據，而單純憑感覺投資。</p>
+                <p>📌 投資風格：重視社會價值、感性決策、較少關注細節。</p>
+                <p>📌 常見投資方式：ESG（環境、社會、治理）投資、社會責任基金。</p>
+                <p>🔎 投資理財建議：</p>
+                <p>關注社會價值並透過投資實現正向影響是很有意義的策略，但財務穩健同樣不可忽視；建議在選擇 ESG 或社會責任投資時，除了評估企業的社會影響力，也要重視財務指標，如營收成長、獲利能力與資產負債結構，以確保投資標的具備長期增值潛力，此外可考慮搭配多元化投資策略，適度配置部分資金至科技創新、藍籌股或穩健型基金，平衡理想與財務回報，這樣既能實現投資理念，也能確保資產穩定成長，達成長期財務目標。</p>
+            </div>
+            <div class="analysis-group" data-mbti="ISTJ,ISFJ,ESTJ,ESFJ">
+                <h4>🩷 守護型（ISTJ、ISFJ、ESTJ、ESFJ）</h4>
+                <p>這類型的投資者注重安全感，不喜歡過大的市場波動，通常會選擇穩定型資產，如藍籌股、高股息 ETF 或債券，並透過 <strong>定期定額</strong> 積累財富。</p>
+                <p>📌 投資風格：保守穩健、長期規劃、風險低。</p>
+                <p>📌 常見投資方式： ETF、債券、定期定額。</p>
+                <p>🔎 投資理財建議：</p>
+                <p>穩健投資能帶來長期的財務安全，但適度提升資產的成長性，有助於提高整體投資報酬率；建議在保持核心穩定資產（如高股息 ETF、債券）的同時，適量配置部分資金至成長型標的，如科技股、新興市場基金或產業趨勢型投資，這樣可以在可控風險內，提高資產的增值潛力，另外透過動態調整投資組合，根據市場變化與個人財務目標適時優化配置，能讓你的投資更具彈性，兼顧安全性與成長性。</p>
+            </div>
+            <div class="analysis-group" data-mbti="ISTP,ISFP,ESTP,ESFP">
+                <h4>🎢 探險型（ISTP、ISFP、ESTP、ESFP）</h4>
+                <p>這類型的人熱愛挑戰與刺激，在投資市場上容易追求高風險、高報酬的機會，例如 <strong>短線交易、加密貨幣或創投基金</strong>，然而他們也容易衝動決策，忽略風險控管。</p>
+                <p>📌 投資風格：靈活應變、短線交易、勇於冒險。</p>
+                <p>📌 常見投資方式：短線交易、加密貨幣、新創投資。</p>
+                <p>🔎 投資理財建議：</p>
+                <p>靈活應變與快速決策是優勢，但穩健的風險控管能讓投資更長遠；建議設定明確的停損與獲利目標，避免因市場波動而情緒化交易，同時適度分配部分資金至穩健型資產，如 ETF 或債券，以平衡投資組合，確保在追求高報酬的同時，維持資產穩定增長。</p>
+            </div>
+        </div>
+        <div class="footer">以上測驗結果僅供參考！
+        @zoecreation</div>
     </div>
 </div>
 
@@ -282,19 +356,44 @@ function showResult(){
         bar.appendChild(barA); bar.appendChild(barB);
         barsDiv.appendChild(bar);
     });
+
+    // 投資人格分析：根據MBTI結果，顯示相應的分析
+    const analysisGroups = document.querySelectorAll('#investment-analysis .analysis-group');
+    analysisGroups.forEach(group => {
+        const mbtiTypes = group.getAttribute('data-mbti').split(',');
+        // 檢查當前的 MBTI 是否屬於該分析群組
+        if (mbtiTypes.includes(mbti)) {
+            group.style.display = 'block'; // 顯示匹配的區塊
+        } else {
+            group.style.display = 'none'; // 隱藏不匹配的區塊
+        }
+    });
+
 }
 
 // 按鈕功能
 function restartQuiz(){ location.reload(); }
 function downloadResult(){
-    html2canvas(document.getElementById("result")).then(canvas=>{
-        const link = document.createElement("a");
-        link.download = "MBTI_Result.png";
-        link.href = canvas.toDataURL();
-        link.click();
-    });
+    // 因為 html2canvas 需要額外的腳本支援，我們在這裡先假設它已載入
+    if (typeof html2canvas === 'function') {
+        html2canvas(document.getElementById("result")).then(canvas=>{
+            const link = document.createElement("a");
+            link.download = "MBTI_Result.png";
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    } else {
+        alert("下載功能需要 html2canvas 腳本支援，請確認腳本已正確載入。");
+    }
 }
 function openLine(){ window.open("https://lin.ee/FmPO1Vz","_blank"); }
+
+// 初始化：在 showResult 之後，一開始所有分析區塊應為隱藏
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('#investment-analysis .analysis-group').forEach(group => {
+        group.style.display = 'none';
+    });
+});
 </script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </body>
