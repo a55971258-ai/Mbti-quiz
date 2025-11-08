@@ -3,49 +3,105 @@
 <head>
 <meta charset="UTF-8">
 <title>群益中山 - 投資人格測驗</title>
-<style>
-body { font-family:'Microsoft JhengHei',sans-serif; background:#f0f2f5; margin:0; padding:0;}
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <style>
+/* --- RWD 字體與基礎設定優化 START --- */
+body { 
+    font-family:'Microsoft JhengHei',sans-serif; 
+    background:#f0f2f5; 
+    margin:0; 
+    padding:0;
+    /* 核心 RWD 字體調整：禁止 iOS/Webkit 自動調整字體大小 */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* 基礎字體大小使用相對單位，方便整體縮放 */
+    font-size: 16px; 
+}
 header { background:#0a3d62; color:white; padding:15px; text-align:center; display:flex; align-items:center; justify-content:center;}
 header img { height:50px; margin-right:15px; }
-header h1 { font-size:28px; }
-.container { max-width:750px; margin:30px auto; background:white; padding:30px; border-radius:15px; box-shadow:0 10px 25px rgba(0,0,0,0.1);}
+header h1 { font-size:1.75rem; /* 使用 rem 單位 */ }
+.container { 
+    max-width:750px; 
+    margin:30px auto; 
+    background:white; 
+    padding:30px; 
+    border-radius:15px; 
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+/* 針對手機螢幕的媒體查詢，縮小 container 的 margin 和 padding */
+@media (max-width: 768px) {
+    .container {
+        margin: 15px;
+        padding: 20px;
+    }
+    header h1 {
+        font-size: 1.5rem;
+    }
+    .question {
+        font-size: 1.1rem !important; /* 問題字體也使用 rem */
+    }
+}
+/* --- RWD 字體與基礎設定優化 END --- */
+
+
 .question { font-size:20px; margin-bottom:20px; font-weight:500; }
-.options button { display:block; width:100%; margin:10px 0; padding:12px; font-size:16px; border:none; border-radius:10px; cursor:pointer; background:#3498db; color:white; transition:0.3s; }
+.options button { display:block; width:100%; margin:10px 0; padding:12px; font-size:1rem; /* 使用 rem */ border:none; border-radius:10px; cursor:pointer; background:#3498db; color:white; transition:0.3s; }
 .options button:hover { background:#2c3e50; }
 .progress-bar { width:100%; background:#dcdde1; border-radius:10px; overflow:hidden; margin-bottom:10px; height:22px; }
 .progress { height:22px; width:0%; background:#27ae60; text-align:center; color:white; line-height:22px; font-weight:bold; transition:0.3s; }
-.start-btn { background:#e67e22; color:white; padding:15px 35px; font-size:18px; border:none; border-radius:12px; cursor:pointer; transition:0.3s; }
+.start-btn { background:#e67e22; color:white; padding:15px 35px; font-size:1rem; border:none; border-radius:12px; cursor:pointer; transition:0.3s; }
 .start-btn:hover { background:#d35400; }
 .nav-btns { display:flex; justify-content:space-between; margin-top:20px; }
-.nav-btns button { padding:10px 20px; font-size:16px; border:none; border-radius:8px; cursor:pointer; background:#34495e; color:white; transition:0.3s; }
+.nav-btns button { padding:10px 20px; font-size:1rem; border:none; border-radius:8px; cursor:pointer; background:#34495e; color:white; transition:0.3s; }
 .nav-btns button:hover { background:#2c3e50; }
 .result { text-align:center; padding:20px; background:#ecf0f1; border-radius:15px; }
-.result h2 { font-size:28px; margin-bottom:10px; color:#2c3e50; }
-.result p { font-size:18px; margin-bottom:20px; color:#34495e; }
-canvas { margin:20px auto; display:block; max-width:350px; }
+.result h2 { font-size:1.75rem; margin-bottom:10px; color:#2c3e50; }
+.result p { font-size:1rem; margin-bottom:20px; color:#34495e; }
+
+/* 圓餅圖容器優化：確保 Chart.js 響應式生效 */
+#chart-wrapper {
+    max-width: 350px;
+    margin: 20px auto;
+    /* 關鍵：Chart.js 需要一個專用容器來控制 RWD */
+    position: relative; 
+}
+#pieChart { margin:0; display:block; } 
+
 #chart-desc { text-align:left; margin-top:15px; }
 #chart-desc ul { list-style:none; padding:0; }
-#chart-desc li { margin-bottom:8px; font-size:16px; }
+#chart-desc li { margin-bottom:8px; font-size:1rem; }
 #chart-bars { display:block; margin-top:20px; }
-.bar-label { font-weight:bold; margin-bottom:5px; display:flex; justify-content:space-between; }
+.bar-label { font-weight:bold; margin-bottom:5px; display:flex; justify-content:space-between; font-size:0.9rem; /* 橫條圖標籤字體 */ }
 .bar-container { display:flex; height:30px; border-radius:8px; overflow:hidden; margin-bottom:15px; }
-.bar-segment { display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; }
-.footer { margin-top:30px; font-size:14px; color:#7f8c8d; }
+.bar-segment { display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; /* 修正：將數字百分比內容隱藏，只保留字母 */ font-size: 0.8rem; }
+.bar-segment span.percent-text { display: none; } /* 預設隱藏百分比數字 */
+
+/* 確保橫條圖在小螢幕上不會擠壓 */
+@media (max-width: 500px) {
+    .bar-segment {
+        font-size: 0.7rem;
+    }
+    .bar-label {
+        font-size: 0.8rem;
+    }
+}
+
+
+.footer { margin-top:30px; font-size:0.85rem; color:#7f8c8d; }
 .result-btns { display:flex; justify-content:center; gap:15px; margin-bottom:20px; }
-.result-btns button { padding:10px 20px; font-size:16px; border:none; border-radius:8px; cursor:pointer; background:#e67e22; color:white; transition:0.3s; }
+.result-btns button { padding:10px 20px; font-size:1rem; border:none; border-radius:8px; cursor:pointer; background:#e67e22; color:white; transition:0.3s; }
 .result-btns button:hover { background:#d35400; }
 
 /* 投資人格分析區塊的樣式 */
 .analysis-section {
     margin-top: 30px;
     padding: 20px;
-    background: #ffffff; /* 不同的背景色以區分 */
+    background: #ffffff;
     border-radius: 10px;
     text-align: left;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 .analysis-section h3 {
-    font-size: 24px;
+    font-size: 1.5rem;
     color: #0a3d62;
     border-bottom: 3px solid #0a3d62;
     padding-bottom: 10px;
@@ -60,22 +116,22 @@ canvas { margin:20px auto; display:block; max-width:350px; }
     line-height: 1.8;
 }
 .analysis-group h4 {
-    font-size: 20px;
+    font-size: 1.25rem;
     margin-top: 0;
     color: #2c3e50;
 }
 .analysis-group p {
-    font-size: 16px;
+    font-size: 0.95rem; /* 使用 rem */
     margin: 5px 0;
 }
 .analysis-group strong {
-    color: #e67e22; /* 強調顏色 */
+    color: #e67e22;
 }
 </style>
 </head>
 <body>
 <header>
-    <img src="https://github.com/a55971258-ai/Mbti-quiz/blob/0d499c16dcec6311bdf8168357faa4cbfa0c657f/logo.png" alt="群益Logo">
+    <img src="https://github.com/a55971258-ai/Mbti-quiz/blob/c40c71704c67d25d94d576aeef4c1316ac8b0bc3/logo.png?raw=true" alt="群益Logo">
     <h1>群益中山 - 投資人格測驗</h1>
 </header>
 
@@ -107,10 +163,12 @@ canvas { margin:20px auto; display:block; max-width:350px; }
             <button onclick="openLine()">傳送至Line@</button>
         </div>
 
-        <canvas id="pieChart" width="350" height="350"></canvas>
+        <div id="chart-wrapper"> 
+            <canvas id="pieChart" width="350" height="350"></canvas>
+        </div>
+        
         <div id="chart-desc"></div>
         <div id="chart-bars"></div>
-
         <div id="investment-analysis" class="analysis-section">
             <h3>投資人格分析</h3>
             <div class="analysis-group" data-mbti="INTJ,INTP,ENTJ,ENTP">
@@ -146,6 +204,7 @@ canvas { margin:20px auto; display:block; max-width:350px; }
                 <p>靈活應變與快速決策是優勢，但穩健的風險控管能讓投資更長遠；建議設定明確的停損與獲利目標，避免因市場波動而情緒化交易，同時適度分配部分資金至穩健型資產，如 ETF 或債券，以平衡投資組合，確保在追求高報酬的同時，維持資產穩定增長。</p>
             </div>
         </div>
+
         <div class="footer">以上測驗結果僅供參考！
         @zoecreation</div>
     </div>
@@ -198,6 +257,7 @@ const mbtiData = {
 
 let current=0;
 let answers=[];
+let myPieChart = null; // 新增：用於儲存 Chart 實例
 
 function startQuiz(){
     document.getElementById("start-screen").style.display="none";
@@ -213,6 +273,10 @@ function showQuestion(){
     q.a.forEach((opt,index)=>{
         const btn=document.createElement("button");
         btn.textContent=opt;
+        // 修正：如果已經選擇過，則加上選中樣式
+        if(answers[current] === index) { 
+            btn.style.backgroundColor = '#2c3e50'; 
+        }
         btn.onclick=()=>selectAnswer(index);
         optionsDiv.appendChild(btn);
     });
@@ -223,12 +287,22 @@ function showQuestion(){
 
 function selectAnswer(choice){
     answers[current]=choice;
-    if(current<questions.length-1){
-        current++;
-        showQuestion();
-    }else{
+    // 修正：更新按鈕狀態
+    document.querySelectorAll('#options button').forEach((btn, index) => {
+        btn.style.backgroundColor = index === choice ? '#2c3e50' : '#3498db';
+    });
+    
+    // 如果是最後一題，直接顯示結果
+    if(current===questions.length-1){
         showResult();
     }
+    // 否則，延遲後跳下一題
+    setTimeout(()=>{
+        if(current < questions.length-1){
+            current++;
+            showQuestion();
+        }
+    }, 200); // 延遲 200 毫秒
 }
 
 function prevQuestion(){
@@ -260,12 +334,15 @@ function showResult(){
     // 計算各維度分數
     const dims = {E:0,I:0,S:0,N:0,T:0,F:0,J:0,P:0};
     questions.forEach((q,i)=>{
-        const val = answers[i];
-        switch(q.dim){
-            case "EI": val===0?dims.E++:dims.I++; break;
-            case "SN": val===0?dims.S++:dims.N++; break;
-            case "TF": val===0?dims.T++:dims.F++; break;
-            case "JP": val===0?dims.J++:dims.P++; break;
+        // 確保問題有被回答
+        if(answers[i] !== undefined) {
+            const val = answers[i];
+            switch(q.dim){
+                case "EI": val===0?dims.E++:dims.I++; break;
+                case "SN": val===0?dims.S++:dims.N++; break;
+                case "TF": val===0?dims.T++:dims.F++; break;
+                case "JP": val===0?dims.J++:dims.P++; break;
+            }
         }
     });
 
@@ -278,31 +355,32 @@ function showResult(){
     document.getElementById("mbti-type").textContent="你的 MBTI: "+mbti;
     document.getElementById("mbti-desc").textContent=mbtiData[mbti];
 
-    // Pie Chart
-    const pieData = ["EI","SN","TF","JP"].map(dim=>{
-        let a,b;
-        switch(dim){
-            case "EI": a=dims.E; b=dims.I; break;
-            case "SN": a=dims.S; b=dims.N; break;
-            case "TF": a=dims.T; b=dims.F; break;
-            case "JP": a=dims.J; b=dims.P; break;
-        }
-        const total = a+b;
-        return total>0 ? Math.round((b/total)*100) : 50;
-    });
+    // --- 圓餅圖修正 START ---
+    if(myPieChart) {
+        myPieChart.destroy(); // 銷毀舊圖表，避免重複渲染問題
+    }
+    
+    // 計算 I, N, F, P 的百分比 (I/E+I, N/S+N, F/T+F, P/J+P)
+    const pieData = [
+        dims.E+dims.I > 0 ? Math.round((dims.I / (dims.E+dims.I)) * 100) : 50, // I
+        dims.S+dims.N > 0 ? Math.round((dims.N / (dims.S+dims.N)) * 100) : 50, // N
+        dims.T+dims.F > 0 ? Math.round((dims.F / (dims.T+dims.F)) * 100) : 50, // F
+        dims.J+dims.P > 0 ? Math.round((dims.P / (dims.J+dims.P)) * 100) : 50, // P
+    ];
 
     const ctx=document.getElementById("pieChart").getContext("2d");
-    new Chart(ctx,{
+    myPieChart = new Chart(ctx,{ // 儲存新的 Chart 實例
         type:'pie',
         data:{
-            labels:['E/I','S/N','T/F','J/P'],
+            labels:['內向 (I)','直覺 (N)','情感 (F)','知覺 (P)'],
             datasets:[{
                 data:pieData,
-                backgroundColor:['#3498db','#2ecc71','#f1c40f','#e67e22']
+                backgroundColor:['#2980b9','#27ae60','#f39c12','#d35400'] // 對應 I N F P 顏色
             }]
         },
         options:{
             responsive:true,
+            maintainAspectRatio: false, // 關鍵：允許圖表自由縮放，不受預設寬高比限制
             plugins:{
                 legend:{position:'bottom'},
                 tooltip:{callbacks:{label:function(context){return context.label+": "+context.raw+"%";}}}
@@ -310,6 +388,7 @@ function showResult(){
             animation:{animateScale:true, animateRotate:true, duration:1500}
         }
     });
+    // --- 圓餅圖修正 END ---
 
     // 圖表解說
     const descDiv = document.getElementById("chart-desc");
@@ -327,19 +406,21 @@ function showResult(){
     html += "</ul>";
     descDiv.innerHTML = html;
 
-    // 橫向條形圖
+    // --- 橫向條形圖修正 START ---
     const barsDiv = document.getElementById("chart-bars");
     barsDiv.innerHTML="";
     const horizontalPairs = [['E','I'], ['S','N'], ['T','F'], ['J','P']];
     const colors = {E:'#3498db', I:'#2980b9', S:'#2ecc71', N:'#27ae60', T:'#f1c40f', F:'#f39c12', J:'#e67e22', P:'#d35400'};
     horizontalPairs.forEach(([a,b])=>{
         const total = dims[a]+dims[b];
-        const aPct = total>0 ? Math.round((dims[a]/total)*100) : 50;
+        // 修正：確保總分不為 0 時才計算百分比
+        const aPct = total>0 ? Math.round((dims[a]/total)*100) : 50; 
         const bPct = 100 - aPct;
 
         const labelDiv = document.createElement("div");
         labelDiv.className="bar-label";
-        labelDiv.textContent = `${a}: ${aPct}%   ${b}: ${bPct}%`;
+        // 修正：標籤顯示 E: 60% I: 40%
+        labelDiv.textContent = `${a}: ${aPct}%   ${b}: ${bPct}%`; 
         barsDiv.appendChild(labelDiv);
 
         const bar = document.createElement("div");
@@ -347,15 +428,20 @@ function showResult(){
 
         const barA = document.createElement("div");
         barA.className="bar-segment";
-        barA.style.width = aPct + "%"; barA.style.backgroundColor = colors[a]; barA.textContent = `${aPct}%`;
+        barA.style.width = aPct + "%"; barA.style.backgroundColor = colors[a]; 
+        // 修正：只顯示字母
+        barA.innerHTML = aPct > 5 ? `<span>${a}</span>` : ''; 
 
         const barB = document.createElement("div");
         barB.className="bar-segment";
-        barB.style.width = bPct + "%"; barB.style.backgroundColor = colors[b]; barB.textContent = `${bPct}%`;
+        barB.style.width = bPct + "%"; barB.style.backgroundColor = colors[b]; 
+        // 修正：只顯示字母
+        barB.innerHTML = bPct > 5 ? `<span>${b}</span>` : ''; 
 
         bar.appendChild(barA); bar.appendChild(barB);
         barsDiv.appendChild(bar);
     });
+    // --- 橫向條形圖修正 END ---
 
     // 投資人格分析：根據MBTI結果，顯示相應的分析
     const analysisGroups = document.querySelectorAll('#investment-analysis .analysis-group');
@@ -372,9 +458,17 @@ function showResult(){
 }
 
 // 按鈕功能
-function restartQuiz(){ location.reload(); }
+function restartQuiz(){ 
+    // 重新載入前先清理 Chart 實例
+    if(myPieChart) {
+        myPieChart.destroy();
+        myPieChart = null;
+    }
+    location.reload(); 
+}
+
 function downloadResult(){
-    // 因為 html2canvas 需要額外的腳本支援，我們在這裡先假設它已載入
+    // 確保 html2canvas 已載入
     if (typeof html2canvas === 'function') {
         html2canvas(document.getElementById("result")).then(canvas=>{
             const link = document.createElement("a");
@@ -388,7 +482,7 @@ function downloadResult(){
 }
 function openLine(){ window.open("https://lin.ee/FmPO1Vz","_blank"); }
 
-// 初始化：在 showResult 之後，一開始所有分析區塊應為隱藏
+// 初始化：一開始所有分析區塊應為隱藏
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('#investment-analysis .analysis-group').forEach(group => {
         group.style.display = 'none';
