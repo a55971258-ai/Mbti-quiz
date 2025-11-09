@@ -15,6 +15,14 @@ body {
     text-size-adjust: 100%;
     font-size: 16px;
 }
+.container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
 header {
     background:#0a3d62;
     color:white;
@@ -27,17 +35,19 @@ header {
 }
 header img {
     /* 調整為更具響應性的最大高度 */
-    max-height: 45px;
-    height: auto;
-    width: auto;
+    max-height: 45px; /* 稍微縮小以適應更多情況 */
+    height: auto; /* 保持圖片比例 */
+    width: auto; /* 保持圖片比例 */
     margin-right:15px;
+    /* 新增：在小螢幕下避免 Logo 過大 */
     flex-shrink: 0; /* 防止 Logo 被擠壓過小 */
 }
 header h1 {
     font-size:1.75rem;
+    /* 新增：在小螢幕下允許標題文字換行 */
     flex-shrink: 1; /* 允許標題文字縮小 */
-    min-width: 0;
-    text-overflow: ellipsis;
+    min-width: 0; /* 讓文字在 flex item 中可以縮小 */
+    text-overflow: ellipsis; /* 超出部分顯示省略號 */
     white-space: normal; /* 允許文字換行 */
 }
 
@@ -48,25 +58,38 @@ header h1 {
         padding: 20px;
     }
     header {
-        padding: 10px;
+        padding: 10px; /* 縮小 header padding */
     }
     header img {
-        max-height: 40px;
+        max-height: 40px; /* 手機上 Logo 稍微小一點 */
         margin-right: 10px;
     }
     header h1 {
-        font-size: 1.3rem;
-        line-height: 1.3;
+        font-size: 1.3rem; /* 手機上標題字體縮小 */
+        line-height: 1.3; /* 改善換行後的行高 */
     }
     .question {
-        font-size: 1.1rem !important; /* 確保問題字體在手機上不會過大 */
+        font-size: 1.1rem !important;
     }
 }
 /* --- RWD 字體與基礎設定優化 END --- */
 
 
 .question { font-size:20px; margin-bottom:20px; font-weight:500; }
-.options button { display:block; width:100%; margin:10px 0; padding:12px; font-size:1rem; border:none; border-radius:10px; cursor:pointer; background:#3498db; color:white; transition:0.3s; text-align: left; } /* 讓選項文字靠左對齊 */
+.options button { 
+    display:block; 
+    width:100%; 
+    margin:10px 0; 
+    padding:12px; 
+    font-size:1rem; 
+    border:none; 
+    border-radius:10px; 
+    cursor:pointer; 
+    background:#3498db; 
+    color:white; 
+    transition:0.3s; 
+    text-align: left; /* 讓選項文字靠左對齊 */
+}
 .options button:hover { background:#2c3e50; }
 .progress-bar { width:100%; background:#dcdde1; border-radius:10px; overflow:hidden; margin-bottom:10px; height:22px; }
 .progress { height:22px; width:0%; background:#27ae60; text-align:center; color:white; line-height:22px; font-weight:bold; transition:0.3s; }
@@ -232,27 +255,36 @@ header h1 {
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-// *** 題目已更新為 12 題投資情境題 ***
+// *** 題目已替換為 21 題專業投資情境題，且選項不帶標籤 ***
 const questions = [
-    // --- 1. E (外向/外部刺激) vs I (內向/內部思考) ---
-    {q:"1. 當你準備買入一檔新股票時，你會？", a:["A. 詢問多位業界朋友意見，觀察社群論壇熱度 (E)","B. 獨自閱讀財報和研究報告，靜待自己的判斷 (I)"], dim:"EI"},
-    {q:"2. 你的投資組合突然大跌，你會？", a:["A. 立刻找人討論或上網尋找市場解讀，需要外部聲音安撫 (E)","B. 關掉軟體，獨自重新審視當初的買入邏輯和基本面 (I)"], dim:"EI"},
-    {q:"3. 一個重大的經濟政策公佈，你會如何理解其影響？", a:["A. 積極參加線上或線下講座，聽取專家解讀和市場反應 (E)","B. 傾向自己分析條文內容，自行推導其對特定產業的影響 (I)"], dim:"EI"},
+    // --- E (向外探索) vs I (向內獨立) --- (6 題)
+    {q:"1. 在考慮一檔新興資產時，你會？", a:["A. 積極參與社群討論、聽取多方意見，再決定","B. 獨立研究技術白皮書和基礎邏輯，不理會市場雜音"], dim:"EI"},
+    {q:"2. 股市崩盤時，你更傾向？", a:["A. 找投資群組或朋友尋求共識和安慰，或聽專家分析","B. 獨自檢視資產配置，確認風險是否仍在個人承受範圍內"], dim:"EI"},
+    {q:"3. 你認為最好的投資決策來源是？", a:["A. 市場熱點、大眾情緒和外部專業人士的共識","B. 經過自己深入思考和論證後的內部確定性"], dim:"EI"},
+    {q:"4. 在一場投資講座中，你會？", a:["A. 積極發問，與講師和周圍的人交流看法","B. 專注聆聽和筆記，課後再花時間整理消化"], dim:"EI"},
+    {q:"5. 發現一個驚人的投資機會，你會？", a:["A. 馬上分享給朋友，並鼓勵他們一同參與","B. 保持低調，先自己悄悄建立倉位"], dim:"EI"},
+    {q:"6. 你的投資觀點被人質疑時，你會？", a:["A. 立刻反駁並尋求外部支持來證明自己","B. 接受並反思，但不影響你的核心決策"], dim:"EI"},
 
-    // --- 2. S (感覺/具體) vs N (直覺/抽象) ---
-    {q:"4. 評估一家新創公司的投資價值時，你會？", a:["A. 嚴格審視其過去三年的營收數據和現金流等具體指標 (S)","B. 評估其商業模式的未來潛力與顛覆市場的可能性 (N)"], dim:"SN"},
-    {q:"5. 選擇投資標的時，你更相信什麼？", a:["A. 歷史數據顯示的穩定報酬率和可驗證的市場事實 (S)","B. 對未來看好的產業趨勢，即使目前沒有太多獲利證明 (N)"], dim:"SN"},
-    {q:"6. 當市場出現負面傳聞時，你的反應是？", a:["A. 馬上查看公司公告和新聞，尋找具體的證據來證實或證偽 (S)","B. 想像這是否是新趨勢的轉折點，思考潛在的長期影響 (N)"], dim:"SN"},
+    // --- S (具體事實) vs N (潛在趨勢) --- (5 題)
+    {q:"7. 評估一家公司時，你最看重？", a:["A. 歷史財報數據、現有市場份額和穩定的營收增長","B. 產品的未來想像空間、顛覆性技術和產業趨勢"], dim:"SN"},
+    {q:"8. 選擇投資書籍時，你會偏好？", a:["A. 講述成功經驗、技術指標應用等具體操作的書","B. 討論宏觀經濟哲學、投資概念和未來趨勢的書"], dim:"SN"},
+    {q:"9. 關於加密貨幣或新興科技，你的態度是？", a:["A. 抱持懷疑，除非看到具體的應用和盈利模式","B. 對其改變世界的潛力感到興奮，願意投入研究和試驗"], dim:"SN"},
+    {q:"10. 看到 K 線圖時，你最先注意到？", a:["A. 當前的價格、成交量、近期的支撐和壓力位","B. 它暗示的長期趨勢、形態的可能性以及隱藏的意義"], dim:"SN"},
+    {q:"11. 你的投資組合中，更側重於哪種資產？", a:["A. 成熟的藍籌股、高股息ETF、不動產等有形資產","B. 成長型股票、新創基金、主題式ETF等概念資產"], dim:"SN"},
 
-    // --- 3. T (思考/客觀) vs F (情感/主觀) ---
-    {q:"7. 你的持股爆出醜聞，但數據顯示它被低估了，你會？", a:["A. 根據估值模型計算和紀律，決定是否加碼或賣出 (T)","B. 考慮公司的社會責任形象，以及這件事對股東信心的影響 (F)"], dim:"TF"},
-    {q:"8. 關於投資決策，你認為最重要的是？", a:["A. 客觀的數字、清晰的邏輯、數學期望值 (T)","B. 遵守個人對投資的信仰、市場的氛圍和個人偏好 (F)"], dim:"TF"},
-    {q:"9. 看到一檔熱門但被認為有泡沫風險的標的，你會？", a:["A. 遵循風險管理，嚴格限制倉位，不被市場氣氛影響 (T)","B. 覺得大家都進場了，擔心錯過機會，傾向跟隨潮流 (F)"], dim:"TF"},
+    // --- T (理性分析) vs F (情感價值) --- (5 題)
+    {q:"12. 賣出投資標的時，你會？", a:["A. 達到預設的獲利或止損點，毫不猶豫地執行","B. 考慮是否有情感上的不捨，或市場情緒是否還能帶動一波"], dim:"TF"},
+    {q:"13. 看到一檔 ESG 評分極低但報酬率極高的股票，你會？", a:["A. 根據報酬率和風險係數來評估是否投資","B. 考慮公司的社會形象和個人價值觀，可能選擇放棄"], dim:"TF"},
+    {q:"14. 聽到市場上充斥著「暴富」的故事，你的反應是？", a:["A. 質疑其背後的數學邏輯和風險是否被隱藏","B. 感到興奮，被財富自由的可能性所激勵"], dim:"TF"},
+    {q:"15. 投資決策中，你認為最應該避免的是？", a:["A. 邏輯不嚴謹、數據不準確、客觀性不足","B. 違背初衷、過度貪婪或恐懼、人云亦云"], dim:"TF"},
+    {q:"16. 關於虧損，你的心態更接近？", a:["A. 這是交易的一部分，只需要調整策略和倉位","B. 感到沮喪和懊悔，需要時間來消化這種挫敗感"], dim:"TF"},
 
-    // --- 4. J (判斷/規劃) vs P (知覺/彈性) ---
-    {q:"10. 你如何處理投資組合中的資金分配？", a:["A. 制定詳細的資產配置表，並嚴格執行再平衡計畫 (J)","B. 保持資金彈性，隨時準備捕捉市場上出現的新機會 (P)"], dim:"JP"},
-    {q:"11. 進行短線交易時，你會？", a:["A. 設定精確的止損點和止盈點，達到條件即刻執行 (J)","B. 根據盤中臨場的感覺和走勢，靈活調整進出場時機 (P)"], dim:"JP"},
-    {q:"12. 關於風險控管，你的看法是？", a:["A. 風險必須被量化、定義和預先規避 (J)","B. 風險是市場的一部分，重點是快速應變，從錯誤中學習 (P)"], dim:"JP"},
+    // --- J (判斷規劃) vs P (知覺彈性) --- (5 題)
+    {q:"17. 你的投資流程是？", a:["A. 嚴格制定年度計畫，每月檢查並執行再平衡","B. 保持彈性，根據市場的即時變化和心情調整策略"], dim:"JP"},
+    {q:"18. 你的閒置資金突然增加一筆，你會？", a:["A. 依照資產配置計畫，將資金精準地分配到各個板塊","B. 等待一段時間，觀望市場有無特別的機會再進場"], dim:"JP"},
+    {q:"19. 你在進行資產配置時，更傾向？", a:["A. 清晰地劃分長線、中線、短線資金，定義其目標","B. 讓資金保持流動性，方便隨時轉移到更有利的位置"], dim:"JP"},
+    {q:"20. 遇到一個緊急的賣出信號，但時間已是半夜，你會？", a:["A. 克服睡意，立刻上線操作，執行預設的計畫","B. 相信短期波動不大，隔天早上再從長計議"], dim:"JP"},
+    {q:"21. 買入某資產後，你發現有更好的標的出現，你會？", a:["A. 堅持原計畫，除非原有資產的基本面發生變化","B. 靈活賣出原資產，將資金轉向那個更好的機會"], dim:"JP"},
 ];
 
 const mbtiData = {
@@ -339,7 +371,6 @@ function nextQuestion(){
 }
 
 function updateProgress(){
-    // 總題數現在是 questions.length (即 12)
     const percent=Math.round(((current+1)/questions.length)*100);
     const progressBar=document.getElementById("progress");
     progressBar.style.width=percent+"%";
@@ -357,8 +388,8 @@ function showResult(){
         // 確保問題有被回答
         if(answers[i] !== undefined) {
             const val = answers[i];
+            // A 選項 (index 0) 對應第一個字母 (E, S, T, J)
             switch(q.dim){
-                // A 選項對應第一個字母 (E, S, T, J)
                 case "EI": val===0?dims.E++:dims.I++; break;
                 case "SN": val===0?dims.S++:dims.N++; break;
                 case "TF": val===0?dims.T++:dims.F++; break;
@@ -376,22 +407,27 @@ function showResult(){
     document.getElementById("mbti-type").textContent="你的 MBTI: "+mbti;
     document.getElementById("mbti-desc").textContent=mbtiData[mbti];
 
-    // --- 圓餅圖/長條圖計算邏輯 (適用於 12 題) ---
+    // --- 圓餅圖/長條圖計算邏輯 (根據 21 題的維度分布總分計算百分比) ---
     if(myPieChart) {
-        myPieChart.destroy();
+        myPieChart.destroy(); // 銷毀舊圖表，避免重複渲染問題
     }
 
+    // 各維度的總題數：EI: 6, SN: 5, TF: 5, JP: 5
+    const totalEI = dims.E + dims.I; 
+    const totalSN = dims.S + dims.N; 
+    const totalTF = dims.T + dims.F; 
+    const totalJP = dims.J + dims.P; 
+
     // 計算 I, N, F, P 的百分比 (I/E+I, N/S+N, F/T+F, P/J+P)
-    // 每個維度的總分都是 3 分，所以 E+I = 3, S+N = 3, T+F = 3, J+P = 3
     const pieData = [
-        dims.E+dims.I > 0 ? Math.round((dims.I / (dims.E+dims.I)) * 100) : 50, // I
-        dims.S+dims.N > 0 ? Math.round((dims.N / (dims.S+dims.N)) * 100) : 50, // N
-        dims.T+dims.F > 0 ? Math.round((dims.F / (dims.T+F)) * 100) : 50, // F
-        dims.J+dims.P > 0 ? Math.round((dims.P / (dims.J+dims.P)) * 100) : 50, // P
+        totalEI > 0 ? Math.round((dims.I / totalEI) * 100) : 50, // I
+        totalSN > 0 ? Math.round((dims.N / totalSN) * 100) : 50, // N
+        totalTF > 0 ? Math.round((dims.F / totalTF) * 100) : 50, // F
+        totalJP > 0 ? Math.round((dims.P / totalJP) * 100) : 50, // P
     ];
 
     const ctx=document.getElementById("pieChart").getContext("2d");
-    myPieChart = new Chart(ctx,{
+    myPieChart = new Chart(ctx,{ // 儲存新的 Chart 實例
         type:'pie',
         data:{
             labels:['內向 (I)','直覺 (N)','情感 (F)','知覺 (P)'],
@@ -402,7 +438,7 @@ function showResult(){
         },
         options:{
             responsive:true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: false, 
             plugins:{
                 legend:{position:'bottom'},
                 tooltip:{callbacks:{label:function(context){return context.label+": "+context.raw+"%";}}}
@@ -411,7 +447,7 @@ function showResult(){
         }
     });
 
-    // 圖表解說 (不變)
+    // 圖表解說
     const descDiv = document.getElementById("chart-desc");
     const labels = ['E/I','S/N','T/F','J/P'];
     const meanings = [
@@ -448,32 +484,34 @@ function showResult(){
         const barA = document.createElement("div");
         barA.className="bar-segment";
         barA.style.width = aPct + "%"; barA.style.backgroundColor = colors[a];
-        barA.innerHTML = aPct > 10 ? `<span>${a}</span>` : '';
+        barA.innerHTML = aPct > 10 ? `<span>${a}</span>` : ''; 
 
         const barB = document.createElement("div");
         barB.className="bar-segment";
         barB.style.width = bPct + "%"; barB.style.backgroundColor = colors[b];
-        barB.innerHTML = bPct > 10 ? `<span>${b}</span>` : '';
+        barB.innerHTML = bPct > 10 ? `<span>${b}</span>` : ''; 
 
         bar.appendChild(barA); bar.appendChild(barB);
         barsDiv.appendChild(bar);
     });
     // --- 橫向條形圖修正 END ---
 
-    // 投資人格分析：根據MBTI結果，顯示相應的分析 (不變)
+    // 投資人格分析：根據MBTI結果，顯示相應的分析
     const analysisGroups = document.querySelectorAll('#investment-analysis .analysis-group');
     analysisGroups.forEach(group => {
         const mbtiTypes = group.getAttribute('data-mbti').split(',');
         if (mbtiTypes.includes(mbti)) {
-            group.style.display = 'block';
+            group.style.display = 'block'; 
         } else {
-            group.style.display = 'none';
+            group.style.display = 'none'; 
         }
     });
+
 }
 
-// 按鈕功能 (不變)
+// 按鈕功能
 function restartQuiz(){
+    // 重新載入前先清理 Chart 實例
     if(myPieChart) {
         myPieChart.destroy();
         myPieChart = null;
@@ -482,6 +520,7 @@ function restartQuiz(){
 }
 
 function downloadResult(){
+    // 確保 html2canvas 已載入
     if (typeof html2canvas === 'function') {
         html2canvas(document.getElementById("result")).then(canvas=>{
             const link = document.createElement("a");
