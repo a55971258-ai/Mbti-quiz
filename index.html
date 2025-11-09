@@ -27,19 +27,17 @@ header {
 }
 header img {
     /* 調整為更具響應性的最大高度 */
-    max-height: 45px; /* 稍微縮小以適應更多情況 */
-    height: auto; /* 保持圖片比例 */
-    width: auto; /* 保持圖片比例 */
+    max-height: 45px;
+    height: auto;
+    width: auto;
     margin-right:15px;
-    /* 新增：在小螢幕下避免 Logo 過大 */
     flex-shrink: 0; /* 防止 Logo 被擠壓過小 */
 }
 header h1 {
     font-size:1.75rem;
-    /* 新增：在小螢幕下允許標題文字換行 */
     flex-shrink: 1; /* 允許標題文字縮小 */
-    min-width: 0; /* 讓文字在 flex item 中可以縮小 */
-    text-overflow: ellipsis; /* 超出部分顯示省略號 */
+    min-width: 0;
+    text-overflow: ellipsis;
     white-space: normal; /* 允許文字換行 */
 }
 
@@ -50,22 +48,25 @@ header h1 {
         padding: 20px;
     }
     header {
-        padding: 10px; /* 縮小 header padding */
+        padding: 10px;
     }
     header img {
-        max-height: 40px; /* 手機上 Logo 稍微小一點 */
+        max-height: 40px;
         margin-right: 10px;
     }
     header h1 {
-        font-size: 1.3rem; /* 手機上標題字體縮小 */
-        line-height: 1.3; /* 改善換行後的行高 */
+        font-size: 1.3rem;
+        line-height: 1.3;
+    }
+    .question {
+        font-size: 1.1rem !important; /* 確保問題字體在手機上不會過大 */
     }
 }
 /* --- RWD 字體與基礎設定優化 END --- */
 
 
 .question { font-size:20px; margin-bottom:20px; font-weight:500; }
-.options button { display:block; width:100%; margin:10px 0; padding:12px; font-size:1rem; border:none; border-radius:10px; cursor:pointer; background:#3498db; color:white; transition:0.3s; }
+.options button { display:block; width:100%; margin:10px 0; padding:12px; font-size:1rem; border:none; border-radius:10px; cursor:pointer; background:#3498db; color:white; transition:0.3s; text-align: left; } /* 讓選項文字靠左對齊 */
 .options button:hover { background:#2c3e50; }
 .progress-bar { width:100%; background:#dcdde1; border-radius:10px; overflow:hidden; margin-bottom:10px; height:22px; }
 .progress { height:22px; width:0%; background:#27ae60; text-align:center; color:white; line-height:22px; font-weight:bold; transition:0.3s; }
@@ -179,7 +180,7 @@ header h1 {
         <div class="result-btns">
             <button onclick="restartQuiz()">再做一次</button>
             <button onclick="downloadResult()">下載結果</button>
-            <button onclick="openLine()">去群益中山Line@</button>
+            <button onclick="openLine()">傳送至Line@</button>
         </div>
 
         <div id="chart-wrapper">
@@ -231,28 +232,27 @@ header h1 {
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+// *** 題目已更新為 12 題投資情境題 ***
 const questions = [
-    {q:"1. 周末收到派對邀約，你會？", a:["當然去！玩樂也是放鬆","不想去，想到社交很累"], dim:"EI"},
-    {q:"2. 派對新朋友滔滔不絕，你會？", a:["分享自己","保持戒備"], dim:"EI"},
-    {q:"3. 好友抽到免費出國大獎，你會？", a:["先看行事曆","立刻收拾行李"], dim:"JP"},
-    {q:"4. 遊樂園約會，你會？", a:["做好路線規劃","重點是相處，隨性玩"], dim:"JP"},
-    {q:"5. 曖昧對象約會，告白時機？", a:["把握機會衝一波","回去好好規劃"], dim:"JP"},
-    {q:"6. 深山民宿度假，你會？", a:["覺得久住會無聊","覺得好適合一個人"], dim:"EI"},
-    {q:"7. 朋友邀高級餐廳，你會？", a:["婉拒","赴約"], dim:"JP"},
-    {q:"8. 周末心情受影響，你會？", a:["約朋友聊聊","獨自整理"], dim:"EI"},
-    {q:"9. 聚會敏感話題，你會？", a:["先思考再說","直來直往反駁"], dim:"TF"},
-    {q:"10. 家人出門獨處，你會？", a:["耍廢享受安靜","安排出門計畫"], dim:"JP"},
-    {q:"11. 陰雨早晨音樂選擇？", a:["隨機播放","仔細選擇適合的歌"], dim:"SN"},
-    {q:"12. 尾牙最大獎，旅遊偏好？", a:["加拿大湖邊小屋","巴黎文藝之旅"], dim:"SN"},
-    {q:"13. 喝醉回家發現遺失，你最怕？", a:["卡夾","紀念手飾"], dim:"TF"},
-    {q:"14. 聚餐被問餐點口味，你會？", a:["描述整體口感","直覺回答好吃"], dim:"TF"},
-    {q:"15. 出國旅行規劃，你會？", a:["整理兩人想去景點","詢問後篩選"], dim:"JP"},
-    {q:"16. 加班回家見鄰居被抬上救護車，你會？", a:["加入幫忙","獨自繞過"], dim:"EI"},
-    {q:"17. 好友想買昂貴精品療傷，你會？", a:["鼓勵陪同挑選","理性勸退"], dim:"TF"},
-    {q:"18. 展場吸引你停下腳步的？", a:["AI高科技","藝術新作"], dim:"SN"},
-    {q:"19. 老闆表揚你，你會？", a:["誠懇稱讚","肯定執行能力"], dim:"TF"},
-    {q:"20. 餐廳臨時關閉，你會？", a:["拿plan B聯絡","隨機探索"], dim:"JP"},
-    {q:"21. 抑鬱事件，你會？", a:["發社群抒發","在心裡消化"], dim:"EI"},
+    // --- 1. E (外向/外部刺激) vs I (內向/內部思考) ---
+    {q:"1. 當你準備買入一檔新股票時，你會？", a:["A. 詢問多位業界朋友意見，觀察社群論壇熱度 (E)","B. 獨自閱讀財報和研究報告，靜待自己的判斷 (I)"], dim:"EI"},
+    {q:"2. 你的投資組合突然大跌，你會？", a:["A. 立刻找人討論或上網尋找市場解讀，需要外部聲音安撫 (E)","B. 關掉軟體，獨自重新審視當初的買入邏輯和基本面 (I)"], dim:"EI"},
+    {q:"3. 一個重大的經濟政策公佈，你會如何理解其影響？", a:["A. 積極參加線上或線下講座，聽取專家解讀和市場反應 (E)","B. 傾向自己分析條文內容，自行推導其對特定產業的影響 (I)"], dim:"EI"},
+
+    // --- 2. S (感覺/具體) vs N (直覺/抽象) ---
+    {q:"4. 評估一家新創公司的投資價值時，你會？", a:["A. 嚴格審視其過去三年的營收數據和現金流等具體指標 (S)","B. 評估其商業模式的未來潛力與顛覆市場的可能性 (N)"], dim:"SN"},
+    {q:"5. 選擇投資標的時，你更相信什麼？", a:["A. 歷史數據顯示的穩定報酬率和可驗證的市場事實 (S)","B. 對未來看好的產業趨勢，即使目前沒有太多獲利證明 (N)"], dim:"SN"},
+    {q:"6. 當市場出現負面傳聞時，你的反應是？", a:["A. 馬上查看公司公告和新聞，尋找具體的證據來證實或證偽 (S)","B. 想像這是否是新趨勢的轉折點，思考潛在的長期影響 (N)"], dim:"SN"},
+
+    // --- 3. T (思考/客觀) vs F (情感/主觀) ---
+    {q:"7. 你的持股爆出醜聞，但數據顯示它被低估了，你會？", a:["A. 根據估值模型計算和紀律，決定是否加碼或賣出 (T)","B. 考慮公司的社會責任形象，以及這件事對股東信心的影響 (F)"], dim:"TF"},
+    {q:"8. 關於投資決策，你認為最重要的是？", a:["A. 客觀的數字、清晰的邏輯、數學期望值 (T)","B. 遵守個人對投資的信仰、市場的氛圍和個人偏好 (F)"], dim:"TF"},
+    {q:"9. 看到一檔熱門但被認為有泡沫風險的標的，你會？", a:["A. 遵循風險管理，嚴格限制倉位，不被市場氣氛影響 (T)","B. 覺得大家都進場了，擔心錯過機會，傾向跟隨潮流 (F)"], dim:"TF"},
+
+    // --- 4. J (判斷/規劃) vs P (知覺/彈性) ---
+    {q:"10. 你如何處理投資組合中的資金分配？", a:["A. 制定詳細的資產配置表，並嚴格執行再平衡計畫 (J)","B. 保持資金彈性，隨時準備捕捉市場上出現的新機會 (P)"], dim:"JP"},
+    {q:"11. 進行短線交易時，你會？", a:["A. 設定精確的止損點和止盈點，達到條件即刻執行 (J)","B. 根據盤中臨場的感覺和走勢，靈活調整進出場時機 (P)"], dim:"JP"},
+    {q:"12. 關於風險控管，你的看法是？", a:["A. 風險必須被量化、定義和預先規避 (J)","B. 風險是市場的一部分，重點是快速應變，從錯誤中學習 (P)"], dim:"JP"},
 ];
 
 const mbtiData = {
@@ -339,7 +339,8 @@ function nextQuestion(){
 }
 
 function updateProgress(){
-    const percent=Math.round((current/questions.length)*100);
+    // 總題數現在是 questions.length (即 12)
+    const percent=Math.round(((current+1)/questions.length)*100);
     const progressBar=document.getElementById("progress");
     progressBar.style.width=percent+"%";
     progressBar.textContent=percent+"%";
@@ -357,6 +358,7 @@ function showResult(){
         if(answers[i] !== undefined) {
             const val = answers[i];
             switch(q.dim){
+                // A 選項對應第一個字母 (E, S, T, J)
                 case "EI": val===0?dims.E++:dims.I++; break;
                 case "SN": val===0?dims.S++:dims.N++; break;
                 case "TF": val===0?dims.T++:dims.F++; break;
@@ -374,21 +376,22 @@ function showResult(){
     document.getElementById("mbti-type").textContent="你的 MBTI: "+mbti;
     document.getElementById("mbti-desc").textContent=mbtiData[mbti];
 
-    // --- 圓餅圖修正 START ---
+    // --- 圓餅圖/長條圖計算邏輯 (適用於 12 題) ---
     if(myPieChart) {
-        myPieChart.destroy(); // 銷毀舊圖表，避免重複渲染問題
+        myPieChart.destroy();
     }
 
     // 計算 I, N, F, P 的百分比 (I/E+I, N/S+N, F/T+F, P/J+P)
+    // 每個維度的總分都是 3 分，所以 E+I = 3, S+N = 3, T+F = 3, J+P = 3
     const pieData = [
         dims.E+dims.I > 0 ? Math.round((dims.I / (dims.E+dims.I)) * 100) : 50, // I
         dims.S+dims.N > 0 ? Math.round((dims.N / (dims.S+dims.N)) * 100) : 50, // N
-        dims.T+dims.F > 0 ? Math.round((dims.F / (dims.T+dims.F)) * 100) : 50, // F
+        dims.T+dims.F > 0 ? Math.round((dims.F / (dims.T+F)) * 100) : 50, // F
         dims.J+dims.P > 0 ? Math.round((dims.P / (dims.J+dims.P)) * 100) : 50, // P
     ];
 
     const ctx=document.getElementById("pieChart").getContext("2d");
-    myPieChart = new Chart(ctx,{ // 儲存新的 Chart 實例
+    myPieChart = new Chart(ctx,{
         type:'pie',
         data:{
             labels:['內向 (I)','直覺 (N)','情感 (F)','知覺 (P)'],
@@ -399,7 +402,7 @@ function showResult(){
         },
         options:{
             responsive:true,
-            maintainAspectRatio: false, // 關鍵：允許圖表自由縮放，不受預設寬高比限制
+            maintainAspectRatio: false,
             plugins:{
                 legend:{position:'bottom'},
                 tooltip:{callbacks:{label:function(context){return context.label+": "+context.raw+"%";}}}
@@ -407,9 +410,8 @@ function showResult(){
             animation:{animateScale:true, animateRotate:true, duration:1500}
         }
     });
-    // --- 圓餅圖修正 END ---
 
-    // 圖表解說
+    // 圖表解說 (不變)
     const descDiv = document.getElementById("chart-desc");
     const labels = ['E/I','S/N','T/F','J/P'];
     const meanings = [
@@ -432,13 +434,11 @@ function showResult(){
     const colors = {E:'#3498db', I:'#2980b9', S:'#2ecc71', N:'#27ae60', T:'#f1c40f', F:'#f39c12', J:'#e67e22', P:'#d35400'};
     horizontalPairs.forEach(([a,b])=>{
         const total = dims[a]+dims[b];
-        // 修正：確保總分不為 0 時才計算百分比
         const aPct = total>0 ? Math.round((dims[a]/total)*100) : 50;
         const bPct = 100 - aPct;
 
         const labelDiv = document.createElement("div");
         labelDiv.className="bar-label";
-        // 修正：標籤顯示 E: 60% I: 40%
         labelDiv.textContent = `${a}: ${aPct}%   ${b}: ${bPct}%`;
         barsDiv.appendChild(labelDiv);
 
@@ -448,37 +448,32 @@ function showResult(){
         const barA = document.createElement("div");
         barA.className="bar-segment";
         barA.style.width = aPct + "%"; barA.style.backgroundColor = colors[a];
-        // 修正：只顯示字母 (且在空間足夠時才顯示)
-        barA.innerHTML = aPct > 10 ? `<span>${a}</span>` : ''; /* 調整為百分比大於10才顯示字母 */
+        barA.innerHTML = aPct > 10 ? `<span>${a}</span>` : '';
 
         const barB = document.createElement("div");
         barB.className="bar-segment";
         barB.style.width = bPct + "%"; barB.style.backgroundColor = colors[b];
-        // 修正：只顯示字母 (且在空間足夠時才顯示)
-        barB.innerHTML = bPct > 10 ? `<span>${b}</span>` : ''; /* 調整為百分比大於10才顯示字母 */
+        barB.innerHTML = bPct > 10 ? `<span>${b}</span>` : '';
 
         bar.appendChild(barA); bar.appendChild(barB);
         barsDiv.appendChild(bar);
     });
     // --- 橫向條形圖修正 END ---
 
-    // 投資人格分析：根據MBTI結果，顯示相應的分析
+    // 投資人格分析：根據MBTI結果，顯示相應的分析 (不變)
     const analysisGroups = document.querySelectorAll('#investment-analysis .analysis-group');
     analysisGroups.forEach(group => {
         const mbtiTypes = group.getAttribute('data-mbti').split(',');
-        // 檢查當前的 MBTI 是否屬於該分析群組
         if (mbtiTypes.includes(mbti)) {
-            group.style.display = 'block'; // 顯示匹配的區塊
+            group.style.display = 'block';
         } else {
-            group.style.display = 'none'; // 隱藏不匹配的區塊
+            group.style.display = 'none';
         }
     });
-
 }
 
-// 按鈕功能
+// 按鈕功能 (不變)
 function restartQuiz(){
-    // 重新載入前先清理 Chart 實例
     if(myPieChart) {
         myPieChart.destroy();
         myPieChart = null;
@@ -487,7 +482,6 @@ function restartQuiz(){
 }
 
 function downloadResult(){
-    // 確保 html2canvas 已載入
     if (typeof html2canvas === 'function') {
         html2canvas(document.getElementById("result")).then(canvas=>{
             const link = document.createElement("a");
