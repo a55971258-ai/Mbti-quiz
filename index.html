@@ -412,7 +412,7 @@ function showResult(){
         myPieChart.destroy(); // 銷毀舊圖表，避免重複渲染問題
     }
 
-    // 各維度的總題數：EI: 5, SN: 5, TF: 5, JP: 5
+    // 各維度的總題數：EI: 6, SN: 5, TF: 5, JP: 5
     const totalEI = dims.E + dims.I; 
     const totalSN = dims.S + dims.N; 
     const totalTF = dims.T + dims.F; 
@@ -532,7 +532,15 @@ function downloadResult(){
         alert("下載功能需要 html2canvas 腳本支援，請確認腳本已正確載入。");
     }
 }
-// 【已新增/修改】核心修復：使用 LINE@ ID 傳送帶有測驗結果的訊息
+function openLine(){ window.open("https://lin.ee/FmPO1Vz","_blank"); }
+
+// 初始化：一開始所有分析區塊應為隱藏
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('#investment-analysis .analysis-group').forEach(group => {
+        group.style.display = 'none';
+    });
+});
+    // 核心修復：使用 LINE@ ID 傳送帶有測驗結果的訊息
 function openLine() { 
     // 您的 LINE@ ID
     const LINE_AT_ID = "@cs6005"; 
@@ -548,7 +556,6 @@ function openLine() {
     const encodedMessage = encodeURIComponent(rawMessage);
 
     // 4. 建構 LINE 官方帳號帶訊息的 URL Scheme
-    // 使用 line.me/R/oaMessage/{LINE_AT_ID}/{encoded_message} 格式
     const lineLink = `https://line.me/R/oaMessage/${LINE_AT_ID}/${encodedMessage}`;
     
     // 5. 開啟連結
