@@ -255,7 +255,7 @@ header h1 {
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-// *** 題目設定 (共 20 題) ***
+// *** 題目已替換為 20 題專業投資情境題，且選項不帶標籤 ***
 const questions = [
     // E/I 題組 (5 題)
     {q:"1. 下班後的你比較想做什麼？", a:["A. 約朋友吃飯聊天，感覺跟人互動最能放鬆。", "B. 回家自己充電，享受一個人的安靜時間。"], dim:"EI"},
@@ -308,7 +308,7 @@ const mbtiData = {
 
 let current=0;
 let answers=[];
-let myPieChart = null; // 用於儲存 Chart 實例
+let myPieChart = null; // 新增：用於儲存 Chart 實例
 
 function startQuiz(){
     document.getElementById("start-screen").style.display="none";
@@ -407,12 +407,12 @@ function showResult(){
     document.getElementById("mbti-type").textContent="你的 MBTI: "+mbti;
     document.getElementById("mbti-desc").textContent=mbtiData[mbti];
 
-    // --- 圓餅圖/長條圖計算邏輯 (根據 20 題的維度分布總分計算百分比) ---
+    // --- 圓餅圖/長條圖計算邏輯 (根據 21 題的維度分布總分計算百分比) ---
     if(myPieChart) {
         myPieChart.destroy(); // 銷毀舊圖表，避免重複渲染問題
     }
 
-    // 各維度的總題數：EI: 5, SN: 5, TF: 5, JP: 5 (總共 20 題)
+    // 各維度的總題數：EI: 6, SN: 5, TF: 5, JP: 5
     const totalEI = dims.E + dims.I; 
     const totalSN = dims.S + dims.N; 
     const totalTF = dims.T + dims.F; 
@@ -532,6 +532,38 @@ function downloadResult(){
         alert("下載功能需要 html2canvas 腳本支援，請確認腳本已正確載入。");
     }
 }
+function openLine(){ window.open("https://lin.ee/FmPO1Vz","_blank"); }
+
+// 初始化：一開始所有分析區塊應為隱藏
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('#investment-analysis .analysis-group').forEach(group => {
+        group.style.display = 'none';
+    });
+});
+
+    // 按鈕功能
+function restartQuiz(){
+    // 重新載入前先清理 Chart 實例
+    if(myPieChart) {
+        myPieChart.destroy();
+        myPieChart = null;
+    }
+    location.reload();
+}
+
+function downloadResult(){
+    // 確保 html2canvas 已載入
+    if (typeof html2canvas === 'function') {
+        html2canvas(document.getElementById("result")).then(canvas=>{
+            const link = document.createElement("a");
+            link.download = "MBTI_Result.png";
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    } else {
+        alert("下載功能需要 html2canvas 腳本支援，請確認腳本已正確載入。");
+    }
+}
 // 【已修改】核心修復：使用 LINE@ ID 傳送帶有測驗結果的訊息
 function openLine() { 
     // 您的 LINE@ ID
@@ -554,13 +586,13 @@ function openLine() {
     window.open(lineLink, "_blank");
 }
 
-
 // 初始化：一開始所有分析區塊應為隱藏
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('#investment-analysis .analysis-group').forEach(group => {
         group.style.display = 'none';
     });
 });
+    
 </script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </body>
