@@ -540,34 +540,7 @@ document.addEventListener('DOMContentLoaded', () => {
         group.style.display = 'none';
     });
 });
-    // 核心修復：使用 LINE@ ID 傳送帶有測驗結果的訊息
-function openLine() { 
-    // 您的 LINE@ ID
-    const LINE_AT_ID = "@cs6005"; 
-
-    // 1. 取得測驗結果
-    const mbtiType = document.getElementById("mbti-type").textContent; 
-    const mbtiDesc = document.getElementById("mbti-desc").textContent; 
-
-    // 2. 組合您希望傳送的訊息（使用 \n 換行符號）
-    const rawMessage = `【群益投資人格測驗結果】\n\n${mbtiType}\n${mbtiDesc}\n\n我想洽詢專屬投資建議，請與我聯繫。`;
-
-    // 3. 將訊息內容進行 URI 編碼
-    const encodedMessage = encodeURIComponent(rawMessage);
-
-    // 4. 建構 LINE 官方帳號帶訊息的 URL Scheme
-    const lineLink = `https://line.me/R/oaMessage/${LINE_AT_ID}/${encodedMessage}`;
     
-    // 5. 開啟連結
-    window.open(lineLink, "_blank");
-}
-
-// 初始化：一開始所有分析區塊應為隱藏
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('#investment-analysis .analysis-group').forEach(group => {
-        group.style.display = 'none';
-    });
-});
 </script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </body>
