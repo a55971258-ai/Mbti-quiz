@@ -519,6 +519,58 @@ function restartQuiz(){
     location.reload();
 }
 
+    // 【優化後的下載結果函式】提高行動裝置，尤其是 iOS Safari 的相容性
+function downloadResult(){
+    // 檢查 html2canvas 是否已載入
+    if (typeof html2canvas !== 'function') {
+        alert("下載功能需要 html2canvas 腳本支援。");
+        return;
+    }
+
+    // 判斷是否為 iOS 設備 (為了處理長按儲存)
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    // 進行截圖
+    html2canvas(document.getElementById("result"), {
+        // 針對高畫質螢幕（如 Retina）的縮放優化，但限制最大為 2，避免超出版面限制
+        scale: Math.min(window.devicePixelRatio, 2) 
+    }).then(canvas => {
+        // 將 Canvas 轉換為圖片的 Base64 URL
+        const dataURL = canvas.toDataURL('image/png');
+
+        if (isIOS) {
+            // 對於 iOS 設備：無法自動下載，開啟新視窗讓使用者長按儲存
+            const newWindow = window.open();
+            newWindow.document.write(`
+                <html>
+                <head>
+                    <title>結果圖片</title>
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <style>body{margin:0; text-align:center; background:#f0f2f5;} img{max-width:100%; height:auto; display:block; margin: 20px auto;}</style>
+                </head>
+                <body>
+                    <h2>請長按圖片以儲存結果</h2>
+                    <img src="${dataURL}" alt="MBTI Result">
+                </body>
+                </html>
+            `);
+            newWindow.document.close();
+        } else {
+            // 對於其他瀏覽器 (Chrome, Firefox, Android 等)：使用 download 屬性自動下載
+            const link = document.createElement("a");
+            link.download = "群益投資人格測驗結果.png";
+            link.href = dataURL;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }).catch(error => {
+        // 截圖失敗的處理
+        console.error("截圖失敗：", error);
+        alert("圖片產生失敗，可能是瀏覽器記憶體不足或截圖內容過於複雜，請嘗試手動截圖。");
+    });
+}
+
 function downloadResult(){
     // 確保 html2canvas 已載入
     if (typeof html2canvas === 'function') {
