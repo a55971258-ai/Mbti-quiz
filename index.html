@@ -7,88 +7,88 @@
 <style>
 /* --- RWD 字體與基礎設定優化 START --- */
 body {
-    font-family:'Microsoft JhengHei',sans-serif;
-    background:#f0f2f5;
-    margin:0;
-    padding:0;
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-    font-size: 16px;
+    font-family:'Microsoft JhengHei',sans-serif;
+    background:#f0f2f5;
+    margin:0;
+    padding:0;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    font-size: 16px;
 }
 .container {
-    max-width: 800px;
-    margin: 30px auto;
-    padding: 30px;
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 header {
-    background:#0a3d62;
-    color:white;
-    padding:15px;
-    text-align:center;
-    display:flex; /* 使用 Flexbox */
-    align-items:center; /* 垂直置中 */
-    justify-content:center; /* 水平置中 */
-    flex-wrap: wrap; /* 允許項目換行，防止在小螢幕上溢出 */
+    background:#0a3d62;
+    color:white;
+    padding:15px;
+    text-align:center;
+    display:flex; /* 使用 Flexbox */
+    align-items:center; /* 垂直置中 */
+    justify-content:center; /* 水平置中 */
+    flex-wrap: wrap; /* 允許項目換行，防止在小螢幕上溢出 */
 }
 header img {
-    /* 調整為更具響應性的最大高度 */
-    max-height: 45px; /* 稍微縮小以適應更多情況 */
-    height: auto; /* 保持圖片比例 */
-    width: auto; /* 保持圖片比例 */
-    margin-right:15px;
-    /* 新增：在小螢幕下避免 Logo 過大 */
-    flex-shrink: 0; /* 防止 Logo 被擠壓過小 */
+    /* 調整為更具響應性的最大高度 */
+    max-height: 45px; /* 稍微縮小以適應更多情況 */
+    height: auto; /* 保持圖片比例 */
+    width: auto; /* 保持圖片比例 */
+    margin-right:15px;
+    /* 新增：在小螢幕下避免 Logo 過大 */
+    flex-shrink: 0; /* 防止 Logo 被擠壓過小 */
 }
 header h1 {
-    font-size:1.75rem;
-    /* 新增：在小螢幕下允許標題文字換行 */
-    flex-shrink: 1; /* 允許標題文字縮小 */
-    min-width: 0; /* 讓文字在 flex item 中可以縮小 */
-    text-overflow: ellipsis; /* 超出部分顯示省略號 */
-    white-space: normal; /* 允許文字換行 */
+    font-size:1.75rem;
+    /* 新增：在小螢幕下允許標題文字換行 */
+    flex-shrink: 1; /* 允許標題文字縮小 */
+    min-width: 0; /* 讓文字在 flex item 中可以縮小 */
+    text-overflow: ellipsis; /* 超出部分顯示省略號 */
+    white-space: normal; /* 允許文字換行 */
 }
 
 /* 針對手機螢幕的媒體查詢，縮小 container 的 margin 和 padding */
 @media (max-width: 768px) {
-    .container {
-        margin: 15px;
-        padding: 20px;
-    }
-    header {
-        padding: 10px; /* 縮小 header padding */
-    }
-    header img {
-        max-height: 40px; /* 手機上 Logo 稍微小一點 */
-        margin-right: 10px;
-    }
-    header h1 {
-        font-size: 1.3rem; /* 手機上標題字體縮小 */
-        line-height: 1.3; /* 改善換行後的行高 */
-    }
-    .question {
-        font-size: 1.1rem !important;
-    }
+    .container {
+        margin: 15px;
+        padding: 20px;
+    }
+    header {
+        padding: 10px; /* 縮小 header padding */
+    }
+    header img {
+        max-height: 40px; /* 手機上 Logo 稍微小一點 */
+        margin-right: 10px;
+    }
+    header h1 {
+        font-size: 1.3rem; /* 手機上標題字體縮小 */
+        line-height: 1.3; /* 改善換行後的行高 */
+    }
+    .question {
+        font-size: 1.1rem !important;
+    }
 }
 /* --- RWD 字體與基礎設定優化 END --- */
 
 
 .question { font-size:20px; margin-bottom:20px; font-weight:500; }
-.options button { 
-    display:block; 
-    width:100%; 
-    margin:10px 0; 
-    padding:12px; 
-    font-size:1rem; 
-    border:none; 
-    border-radius:10px; 
-    cursor:pointer; 
-    background:#3498db; 
-    color:white; 
-    transition:0.3s; 
-    text-align: left; /* 讓選項文字靠左對齊 */
+.options button { 
+    display:block; 
+    width:100%; 
+    margin:10px 0; 
+    padding:12px; 
+    font-size:1rem; 
+    border:none; 
+    border-radius:10px; 
+    cursor:pointer; 
+    background:#3498db; 
+    color:white; 
+    transition:0.3s; 
+    text-align: left; /* 讓選項文字靠左對齊 */
 }
 .options button:hover { background:#2c3e50; }
 .progress-bar { width:100%; background:#dcdde1; border-radius:10px; overflow:hidden; margin-bottom:10px; height:22px; }
@@ -104,9 +104,9 @@ header h1 {
 
 /* 圓餅圖容器優化：確保 Chart.js 響應式生效 */
 #chart-wrapper {
-    max-width: 350px;
-    margin: 20px auto;
-    position: relative;
+    max-width: 350px;
+    margin: 20px auto;
+    position: relative;
 }
 #pieChart { margin:0; display:block; }
 
@@ -120,12 +120,12 @@ header h1 {
 .bar-segment span.percent-text { display: none; }
 
 @media (max-width: 500px) {
-    .bar-segment {
-        font-size: 0.7rem;
-    }
-    .bar-label {
-        font-size: 0.8rem;
-    }
+    .bar-segment {
+        font-size: 0.7rem;
+    }
+    .bar-label {
+        font-size: 0.8rem;
+    }
 }
 
 
@@ -136,174 +136,174 @@ header h1 {
 
 /* 投資人格分析區塊的樣式 */
 .analysis-section {
-    margin-top: 30px;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 10px;
-    text-align: left;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-top: 30px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 .analysis-section h3 {
-    font-size: 1.5rem;
-    color: #0a3d62;
-    border-bottom: 3px solid #0a3d62;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    text-align: center;
+    font-size: 1.5rem;
+    color: #0a3d62;
+    border-bottom: 3px solid #0a3d62;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 .analysis-group {
-    margin-bottom: 25px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    line-height: 1.8;
+    margin-bottom: 25px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    line-height: 1.8;
 }
 .analysis-group h4 {
-    font-size: 1.25rem;
-    margin-top: 0;
-    color: #2c3e50;
+    font-size: 1.25rem;
+    margin-top: 0;
+    color: #2c3e50;
 }
 .analysis-group p {
-    font-size: 0.95rem;
-    margin: 5px 0;
+    font-size: 0.95rem;
+    margin: 5px 0;
 }
 .analysis-group strong {
-    color: #e67e22;
+    color: #e67e22;
 }
 </style>
 </head>
 <body>
 <header>
-    <img src="https://github.com/a55971258-ai/Mbti-quiz/blob/370f467269e7962d5752a4f3715990d45f7c6a8a/logo.png?raw=true" alt="群益Logo">
-    <h1>群益中山 - 投資人格測驗</h1>
+    <img src="https://github.com/a55971258-ai/Mbti-quiz/blob/370f467269e7962d5752a4f3715990d45f7c6a8a/logo.png?raw=true" alt="群益Logo">
+    <h1>群益中山 - 投資人格測驗</h1>
 </header>
 
 <div class="container" id="quiz-container">
-    <div id="start-screen" style="text-align:center;">
-        <h2>歡迎參加群益中山投資人格測驗！</h2>
-        <button class="start-btn" onclick="startQuiz()">開始測驗</button>
-    </div>
+    <div id="start-screen" style="text-align:center;">
+        <h2>歡迎參加群益中山投資人格測驗！</h2>
+        <button class="start-btn" onclick="startQuiz()">開始測驗</button>
+    </div>
 
-    <div id="quiz" style="display:none;">
-        <div class="progress-bar">
-            <div class="progress" id="progress">0%</div>
-        </div>
-        <div class="question" id="question-text"></div>
-        <div class="options" id="options"></div>
-        <div class="nav-btns">
-            <button id="prev-btn" onclick="prevQuestion()">上一題</button>
-            <button id="next-btn" onclick="nextQuestion()" style="display:none;">下一題</button>
-        </div>
-    </div>
+    <div id="quiz" style="display:none;">
+        <div class="progress-bar">
+            <div class="progress" id="progress">0%</div>
+        </div>
+        <div class="question" id="question-text"></div>
+        <div class="options" id="options"></div>
+        <div class="nav-btns">
+            <button id="prev-btn" onclick="prevQuestion()">上一題</button>
+            <button id="next-btn" onclick="nextQuestion()" style="display:none;">下一題</button>
+        </div>
+    </div>
 
-    <div id="result" style="display:none;" class="result">
-        <h2 id="mbti-type"></h2>
-        <p id="mbti-desc"></p>
+    <div id="result" style="display:none;" class="result">
+        <h2 id="mbti-type"></h2>
+        <p id="mbti-desc"></p>
 
-        <div class="result-btns">
-            <button onclick="restartQuiz()">再做一次</button>
-            <button onclick="downloadResult()">下載結果</button>
-            <button onclick="openLine()">傳送至Line@</button>
-        </div>
+        <div class="result-btns">
+            <button onclick="restartQuiz()">再做一次</button>
+            <button onclick="downloadResult()">下載結果</button>
+            <button onclick="openLine()">傳送至Line@</button>
+        </div>
 
-        <div id="chart-wrapper">
-            <canvas id="pieChart" width="350" height="350"></canvas>
-        </div>
+        <div id="chart-wrapper">
+            <canvas id="pieChart" width="350" height="350"></canvas>
+        </div>
 
-        <div id="chart-desc"></div>
-        <div id="chart-bars"></div>
-        <div id="investment-analysis" class="analysis-section">
-            <h3>投資人格分析</h3>
-            <div class="analysis-group" data-mbti="INTJ,INTP,ENTJ,ENTP">
-                <h4>📊 分析型（INTJ、INTP、ENTJ、ENTP）</h4>
-                <p>習慣透過數據來判斷投資決策，他們不容易被市場波動影響，喜歡 <strong>有邏輯、有策略</strong> 的投資方式，例如INTJ 可能會選擇 <strong>價值投資</strong>，深入研究企業財報和市場趨勢，再決定是否長期持有。</p>
-                <p>📌 投資風格：理性分析、數據驅動、偏向長線投資。</p>
-                <p>📌 常見投資方式：價值投資、科技股、指數型基金。</p>
-                <p>🔎 投資理財建議：</p>
-                <p>理性與數據驅動的投資方式能有效降低市場情緒對決策的影響，但過度分析可能導致錯失關鍵投資機會；建議建立明確的投資計畫與決策機制，例如設定買賣條件，避免陷入無止境的數據評估，另外可以適時運用定期定額策略，在不影響長線投資邏輯的同時，減少進場時機的壓力，提高投資效率，雖然價值投資與科技股是強項，但也可適度關注市場趨勢與新興產業，以確保資產配置能兼顧穩健與成長性。</p>
-            </div>
-            <div class="analysis-group" data-mbti="INFJ,INFP,ENFJ,ENFP">
-                <h4>🪅 外交型（INFJ、INFP、ENFJ、ENFP）</h4>
-                <p>這類型的投資者希望自己的投資能夠產生積極的社會影響，例如選擇投資 <strong>環保產業、社會企業或永續發展基金</strong>，但是他們有時可能會忽略財務數據，而單純憑感覺投資。</p>
-                <p>📌 投資風格：重視社會價值、感性決策、較少關注細節。</p>
-                <p>📌 常見投資方式：ESG（環境、社會、治理）投資、社會責任基金。</p>
-                <p>🔎 投資理財建議：</p>
-                <p>關注社會價值並透過投資實現正向影響是很有意義的策略，但財務穩健同樣不可忽視；建議在選擇 ESG 或社會責任投資時，除了評估企業的社會影響力，也要重視財務指標，如營收成長、獲利能力與資產負債結構，以確保投資標的具備長期增值潛力，此外可考慮搭配多元化投資策略，適度配置部分資金至科技創新、藍籌股或穩健型基金，平衡理想與財務回報，這樣既能實現投資理念，也能確保資產穩定成長，達成長期財務目標。</p>
-            </div>
-            <div class="analysis-group" data-mbti="ISTJ,ISFJ,ESTJ,ESFJ">
-                <h4>🩷 守護型（ISTJ、ISFJ、ESTJ、ESFJ）</h4>
-                <p>這類型的投資者注重安全感，不喜歡過大的市場波動，通常會選擇穩定型資產，如藍籌股、高股息 ETF 或債券，並透過 <strong>定期定額</strong> 積累財富。</p>
-                <p>📌 投資風格：保守穩健、長期規劃、風險低。</p>
-                <p>📌 常見投資方式： ETF、債券、定期定額。</p>
-                <p>🔎 投資理財建議：</p>
-                <p>穩健投資能帶來長期的財務安全，但適度提升資產的成長性，有助於提高整體投資報酬率；建議在保持核心穩定資產（如高股息 ETF、債券）的同時，適量配置部分資金至成長型標的，如科技股、新興市場基金或產業趨勢型投資，這樣可以在可控風險內，提高資產的增值潛力，另外透過動態調整投資組合，根據市場變化與個人財務目標適時優化配置，能讓你的投資更具彈性，兼顧安全性與成長性。</p>
-            </div>
-            <div class="analysis-group" data-mbti="ISTP,ISFP,ESTP,ESFP">
-                <h4>🎢 探險型（ISTP、ISFP、ESTP、ESFP）</h4>
-                <p>這類型的人熱愛挑戰與刺激，在投資市場上容易追求高風險、高報酬的機會，例如 <strong>短線交易、加密貨幣或創投基金</strong>，然而他們也容易衝動決策，忽略風險控管。</p>
-                <p>📌 投資風格：靈活應變、短線交易、勇於冒險。</p>
-                <p>📌 常見投資方式：短線交易、加密貨幣、新創投資。</p>
-                <p>🔎 投資理財建議：</p>
-                <p>靈活應變與快速決策是優勢，但穩健的風險控管能讓投資更長遠；建議設定明確的停損與獲利目標，避免因市場波動而情緒化交易，同時適度分配部分資金至穩健型資產，如 ETF 或債券，以平衡投資組合，確保在追求高報酬的同時，維持資產穩定增長。</p>
-            </div>
-        </div>
+        <div id="chart-desc"></div>
+        <div id="chart-bars"></div>
+        <div id="investment-analysis" class="analysis-section">
+            <h3>投資人格分析</h3>
+            <div class="analysis-group" data-mbti="INTJ,INTP,ENTJ,ENTP">
+                <h4>📊 分析型（INTJ、INTP、ENTJ、ENTP）</h4>
+                <p>習慣透過數據來判斷投資決策，他們不容易被市場波動影響，喜歡 <strong>有邏輯、有策略</strong> 的投資方式，例如INTJ 可能會選擇 <strong>價值投資</strong>，深入研究企業財報和市場趨勢，再決定是否長期持有。</p>
+                <p>📌 投資風格：理性分析、數據驅動、偏向長線投資。</p>
+                <p>📌 常見投資方式：價值投資、科技股、指數型基金。</p>
+                <p>🔎 投資理財建議：</p>
+                <p>理性與數據驅動的投資方式能有效降低市場情緒對決策的影響，但過度分析可能導致錯失關鍵投資機會；建議建立明確的投資計畫與決策機制，例如設定買賣條件，避免陷入無止境的數據評估，另外可以適時運用定期定額策略，在不影響長線投資邏輯的同時，減少進場時機的壓力，提高投資效率，雖然價值投資與科技股是強項，但也可適度關注市場趨勢與新興產業，以確保資產配置能兼顧穩健與成長性。</p>
+            </div>
+            <div class="analysis-group" data-mbti="INFJ,INFP,ENFJ,ENFP">
+                <h4>🪅 外交型（INFJ、INFP、ENFJ、ENFP）</h4>
+                <p>這類型的投資者希望自己的投資能夠產生積極的社會影響，例如選擇投資 <strong>環保產業、社會企業或永續發展基金</strong>，但是他們有時可能會忽略財務數據，而單純憑感覺投資。</p>
+                <p>📌 投資風格：重視社會價值、感性決策、較少關注細節。</p>
+                <p>📌 常見投資方式：ESG（環境、社會、治理）投資、社會責任基金。</p>
+                <p>🔎 投資理財建議：</p>
+                <p>關注社會價值並透過投資實現正向影響是很有意義的策略，但財務穩健同樣不可忽視；建議在選擇 ESG 或社會責任投資時，除了評估企業的社會影響力，也要重視財務指標，如營收成長、獲利能力與資產負債結構，以確保投資標的具備長期增值潛力，此外可考慮搭配多元化投資策略，適度配置部分資金至科技創新、藍籌股或穩健型基金，平衡理想與財務回報，這樣既能實現投資理念，也能確保資產穩定成長，達成長期財務目標。</p>
+            </div>
+            <div class="analysis-group" data-mbti="ISTJ,ISFJ,ESTJ,ESFJ">
+                <h4>🩷 守護型（ISTJ、ISFJ、ESTJ、ESFJ）</h4>
+                <p>這類型的投資者注重安全感，不喜歡過大的市場波動，通常會選擇穩定型資產，如藍籌股、高股息 ETF 或債券，並透過 <strong>定期定額</strong> 積累財富。</p>
+                <p>📌 投資風格：保守穩健、長期規劃、風險低。</p>
+                <p>📌 常見投資方式： ETF、債券、定期定額。</p>
+                <p>🔎 投資理財建議：</p>
+                <p>穩健投資能帶來長期的財務安全，但適度提升資產的成長性，有助於提高整體投資報酬率；建議在保持核心穩定資產（如高股息 ETF、債券）的同時，適量配置部分資金至成長型標的，如科技股、新興市場基金或產業趨勢型投資，這樣可以在可控風險內，提高資產的增值潛力，另外透過動態調整投資組合，根據市場變化與個人財務目標適時優化配置，能讓你的投資更具彈性，兼顧安全性與成長性。</p>
+            </div>
+            <div class="analysis-group" data-mbti="ISTP,ISFP,ESTP,ESFP">
+                <h4>🎢 探險型（ISTP、ISFP、ESTP、ESFP）</h4>
+                <p>這類型的人熱愛挑戰與刺激，在投資市場上容易追求高風險、高報酬的機會，例如 <strong>短線交易、加密貨幣或創投基金</strong>，然而他們也容易衝動決策，忽略風險控管。</p>
+                <p>📌 投資風格：靈活應變、短線交易、勇於冒險。</p>
+                <p>📌 常見投資方式：短線交易、加密貨幣、新創投資。</p>
+                <p>🔎 投資理財建議：</p>
+                <p>靈活應變與快速決策是優勢，但穩健的風險控管能讓投資更長遠；建議設定明確的停損與獲利目標，避免因市場波動而情緒化交易，同時適度分配部分資金至穩健型資產，如 ETF 或債券，以平衡投資組合，確保在追求高報酬的同時，維持資產穩定增長。</p>
+            </div>
+        </div>
 
-        <div class="footer">以上測驗結果僅供參考！
-        @zoecreation</div>
-    </div>
+        <div class="footer">以上測驗結果僅供參考！
+        @zoecreation</div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 // *** 題目已替換為 20 題專業投資情境題，且選項不帶標籤 ***
 const questions = [
-    // E/I 題組 (5 題)
-    {q:"1. 下班後的你比較想做什麼？", a:["A. 約朋友吃飯聊天，感覺跟人互動最能放鬆。", "B. 回家自己充電，享受一個人的安靜時間。"], dim:"EI"},
-    {q:"2. 參加聚會時，你通常是？", a:["A. 主動跟不同人聊天，認識新朋友很自然。", "B. 和熟悉的人待在一起較自在，不會刻意擴大社交。"], dim:"EI"},
-    {q:"3. 遇到煩惱時，你會？", a:["A. 找身邊的人討論，說出來比較輕鬆。", "B. 自己整理思緒，想清楚後才願意分享。"], dim:"EI"},
-    {q:"4. 一群人一起討論時，你常是？", a:["A. 主動提出想法、帶來活力與節奏。", "B. 觀察大家的反應，再提出深思後的意見。"], dim:"EI"},
-    {q:"5. 公司舉辦大型活動，你會？", a:["A. 享受跟很多人互動，會主動參與。", "B. 找幾個熟悉的人聊天，或獨自觀察活動。"], dim:"EI"},
+    // E/I 題組 (5 題)
+    {q:"1. 下班後的你比較想做什麼？", a:["A. 約朋友吃飯聊天，感覺跟人互動最能放鬆。", "B. 回家自己充電，享受一個人的安靜時間。"], dim:"EI"},
+    {q:"2. 參加聚會時，你通常是？", a:["A. 主動跟不同人聊天，認識新朋友很自然。", "B. 和熟悉的人待在一起較自在，不會刻意擴大社交。"], dim:"EI"},
+    {q:"3. 遇到煩惱時，你會？", a:["A. 找身邊的人討論，說出來比較輕鬆。", "B. 自己整理思緒，想清楚後才願意分享。"], dim:"EI"},
+    {q:"4. 一群人一起討論時，你常是？", a:["A. 主動提出想法、帶來活力與節奏。", "B. 觀察大家的反應，再提出深思後的意見。"], dim:"EI"},
+    {q:"5. 公司舉辦大型活動，你會？", a:["A. 享受跟很多人互動，會主動參與。", "B. 找幾個熟悉的人聊天，或獨自觀察活動。"], dim:"EI"},
 
-    // S/N 題組 (5 題)
-    {q:"6. 你比較容易被吸引的是？", a:["A. 具體的資訊、可實作的細節。", "B. 新概念、可能性、未來的想像方向。"], dim:"SN"},
-    {q:"7. 規劃行程時，你會？", a:["A. 重視實際資訊：路線、交通、時間、規則。", "B. 先想像整體氛圍：這趟旅程想要什麼感受。"], dim:"SN"},
-    {q:"8. 在工作上，你更常？", a:["A. 依照現有資料、過往經驗做判斷。", "B. 看到隱含的趨勢、聯想出沒說明的可能性。"], dim:"SN"},
-    {q:"9. 公司要推出新專案，你最關注？", a:["A. 要做的具體內容、流程和細節。", "B. 這個專案帶來的長期意義或願景。"], dim:"SN"},
-    {q:"10. 看到新產品時，你最在意？", a:["A. 實際功能好不好用。", "B. 概念、設計故事、未來的發展可能。"], dim:"SN"},
-   
-    // T/F 題組 (5 題)
-    {q:"11. 做決定時，你傾向？", a:["A. 先看邏輯與利弊，什麼是最有效的做法。", "B. 在意個人感受與影響到的人，什麼最符合價值觀。"], dim:"TF"},
-    {q:"12. 聽到朋友抱怨工作時，你比較可能？", a:["A. 直接提供分析或實際解法。", "B. 先陪他情緒、表示理解與支持。"], dim:"TF"},
-    {q:"13. 面對衝突時，你會？", a:["A. 客觀談事情，先把問題講清楚。", "B. 優先顧及關係，避免讓對方難受。"], dim:"TF"},
-    {q:"14. 檢視自己的工作成果時，你會？", a:["A. 檢查是否邏輯清楚、數據正確。", "B. 檢查是否符合期待、呈現方式是否讓人舒服。"], dim:"TF"},
-    {q:"15. 完成一個任務後，你比較在乎？", a:["A. 效率、成果是否達標。", "B. 過程有沒有舒服、關係是否順利。"], dim:"TF"},
+    // S/N 題組 (5 題)
+    {q:"6. 你比較容易被吸引的是？", a:["A. 具體的資訊、可實作的細節。", "B. 新概念、可能性、未來的想像方向。"], dim:"SN"},
+    {q:"7. 規劃行程時，你會？", a:["A. 重視實際資訊：路線、交通、時間、規則。", "B. 先想像整體氛圍：這趟旅程想要什麼感受。"], dim:"SN"},
+    {q:"8. 在工作上，你更常？", a:["A. 依照現有資料、過往經驗做判斷。", "B. 看到隱含的趨勢、聯想出沒說明的可能性。"], dim:"SN"},
+    {q:"9. 公司要推出新專案，你最關注？", a:["A. 要做的具體內容、流程和細節。", "B. 這個專案帶來的長期意義或願景。"], dim:"SN"},
+    {q:"10. 看到新產品時，你最在意？", a:["A. 實際功能好不好用。", "B. 概念、設計故事、未來的發展可能。"], dim:"SN"},
+   
+    // T/F 題組 (5 題)
+    {q:"11. 做決定時，你傾向？", a:["A. 先看邏輯與利弊，什麼是最有效的做法。", "B. 在意個人感受與影響到的人，什麼最符合價值觀。"], dim:"TF"},
+    {q:"12. 聽到朋友抱怨工作時，你比較可能？", a:["A. 直接提供分析或實際解法。", "B. 先陪他情緒、表示理解與支持。"], dim:"TF"},
+    {q:"13. 面對衝突時，你會？", a:["A. 客觀談事情，先把問題講清楚。", "B. 優先顧及關係，避免讓對方難受。"], dim:"TF"},
+    {q:"14. 檢視自己的工作成果時，你會？", a:["A. 檢查是否邏輯清楚、數據正確。", "B. 檢查是否符合期待、呈現方式是否讓人舒服。"], dim:"TF"},
+    {q:"15. 完成一個任務後，你比較在乎？", a:["A. 效率、成果是否達標。", "B. 過程有沒有舒服、關係是否順利。"], dim:"TF"},
 
-    // J/P 題組 (5 題)
-    {q:"16. 你對於行程安排的偏好？", a:["A. 喜歡提前排好，知道接下來會發生什麼。", "B. 保持彈性，視當下狀況調整最舒服。"], dim:"JP"},
-    {q:"17. 做專案時，你的習慣是？", a:["A. 先規劃步驟、訂時間，按計畫完成。", "B. 先開始做，再一邊調整、一邊發展。"], dim:"JP"},
-    {q:"18. 面對突然的改變，你通常？", a:["A. 會覺得被打亂，需要時間重新安排。", "B. 很快轉換方向，覺得變化不錯也可接受。"], dim:"JP"},
-    {q:"19. 準備旅行前，你通常？", a:["A. 列清單、確認訂房時間、準備好所有細節。", "B. 打包必要物品即可，到當地再看情況調整。"], dim:"JP"},
-    {q:"20. 朋友臨時約你出門？", a:["A. 想提前知道活動內容才能決定。", "B. 沒差，可以邊走邊決定做什麼。"], dim:"JP"}
+    // J/P 題組 (5 題)
+    {q:"16. 你對於行程安排的偏好？", a:["A. 喜歡提前排好，知道接下來會發生什麼。", "B. 保持彈性，視當下狀況調整最舒服。"], dim:"JP"},
+    {q:"17. 做專案時，你的習慣是？", a:["A. 先規劃步驟、訂時間，按計畫完成。", "B. 先開始做，再一邊調整、一邊發展。"], dim:"JP"},
+    {q:"18. 面對突然的改變，你通常？", a:["A. 會覺得被打亂，需要時間重新安排。", "B. 很快轉換方向，覺得變化不錯也可接受。"], dim:"JP"},
+    {q:"19. 準備旅行前，你通常？", a:["A. 列清單、確認訂房時間、準備好所有細節。", "B. 打包必要物品即可，到當地再看情況調整。"], dim:"JP"},
+    {q:"20. 朋友臨時約你出門？", a:["A. 想提前知道活動內容才能決定。", "B. 沒差，可以邊走邊決定做什麼。"], dim:"JP"}
 
 ];
-    
+    
 const mbtiData = {
-    "ISTJ":"嚴謹、有紀律，偏好計畫性交易，追求安全穩定。",
-    "ISFJ":"謹慎、細心，會仔細分析市場資訊，避免衝動操作。",
-    "INFJ":"前瞻性強，注重策略與風險控制，喜歡深入研究市場趨勢。",
-    "INTJ":"策略型思維，善於制定長期交易計畫，注重效率與風險管理。",
-    "ISTP":"靈活、實際，喜歡即時反應市場變化，偏好短線操作。",
-    "ISFP":"保守、穩定，注重直覺與感受，喜歡低風險交易。",
-    "INFP":"理想主義、獨立思考，喜歡探索新市場或新策略。",
-    "INTP":"分析能力強，喜歡研究複雜數據與策略，追求創新交易方法。",
-    "ESTP":"行動派，快速判斷市場訊號，偏好即時交易或波段操作。",
-    "ESFP":"外向、靈活，喜歡跟市場互動，偏好波段與短線操作。",
-    "ENFP":"創意十足，善於捕捉新興市場機會，喜歡多元策略。",
-    "ENTP":"機智、好挑戰，喜歡創新交易工具與衍生性商品操作。",
-    "ESTJ":"架構清晰，善於規劃，偏好藍籌、穩健型交易。",
-    "ESFJ":"社交型，會參考他人資訊與市場氛圍，傾向保守操作。",
-    "ENFJ":"策略型領導，會綜合資訊決策，喜歡分散布局降低風險。",
-    "ENTJ":"果斷、目標導向，喜歡系統化分析，善於掌控交易節奏。"
+    "ISTJ":"嚴謹、有紀律，偏好計畫性交易，追求安全穩定。",
+    "ISFJ":"謹慎、細心，會仔細分析市場資訊，避免衝動操作。",
+    "INFJ":"前瞻性強，注重策略與風險控制，喜歡深入研究市場趨勢。",
+    "INTJ":"策略型思維，善於制定長期交易計畫，注重效率與風險管理。",
+    "ISTP":"靈活、實際，喜歡即時反應市場變化，偏好短線操作。",
+    "ISFP":"保守、穩定，注重直覺與感受，喜歡低風險交易。",
+    "INFP":"理想主義、獨立思考，喜歡探索新市場或新策略。",
+    "INTP":"分析能力強，喜歡研究複雜數據與策略，追求創新交易方法。",
+    "ESTP":"行動派，快速判斷市場訊號，偏好即時交易或波段操作。",
+    "ESFP":"外向、靈活，喜歡跟市場互動，偏好波段與短線操作。",
+    "ENFP":"創意十足，善於捕捉新興市場機會，喜歡多元策略。",
+    "ENTP":"機智、好挑戰，喜歡創新交易工具與衍生性商品操作。",
+    "ESTJ":"架構清晰，善於規劃，偏好藍籌、穩健型交易。",
+    "ESFJ":"社交型，會參考他人資訊與市場氛圍，傾向保守操作。",
+    "ENFJ":"策略型領導，會綜合資訊決策，喜歡分散布局降低風險。",
+    "ENTJ":"果斷、目標導向，喜歡系統化分析，善於掌控交易節奏。"
 };
 
 let current=0;
@@ -311,234 +311,234 @@ let answers=[];
 let myPieChart = null; // 新增：用於儲存 Chart 實例
 
 function startQuiz(){
-    document.getElementById("start-screen").style.display="none";
-    document.getElementById("quiz").style.display="block";
-    showQuestion();
+    document.getElementById("start-screen").style.display="none";
+    document.getElementById("quiz").style.display="block";
+    showQuestion();
 }
 
 function showQuestion(){
-    const q=questions[current];
-    document.getElementById("question-text").textContent=q.q;
-    const optionsDiv=document.getElementById("options");
-    optionsDiv.innerHTML="";
-    q.a.forEach((opt,index)=>{
-        const btn=document.createElement("button");
-        btn.textContent=opt;
-        // 修正：如果已經選擇過，則加上選中樣式
-        if(answers[current] === index) {
-            btn.style.backgroundColor = '#2c3e50';
-        }
-        btn.onclick=()=>selectAnswer(index);
-        optionsDiv.appendChild(btn);
-    });
-    document.getElementById("prev-btn").style.display = current>0?"inline-block":"none";
-    document.getElementById("next-btn").style.display="none";
-    updateProgress();
+    const q=questions[current];
+    document.getElementById("question-text").textContent=q.q;
+    const optionsDiv=document.getElementById("options");
+    optionsDiv.innerHTML="";
+    q.a.forEach((opt,index)=>{
+        const btn=document.createElement("button");
+        btn.textContent=opt;
+        // 修正：如果已經選擇過，則加上選中樣式
+        if(answers[current] === index) {
+            btn.style.backgroundColor = '#2c3e50';
+        }
+        btn.onclick=()=>selectAnswer(index);
+        optionsDiv.appendChild(btn);
+    });
+    document.getElementById("prev-btn").style.display = current>0?"inline-block":"none";
+    document.getElementById("next-btn").style.display="none";
+    updateProgress();
 }
 
 function selectAnswer(choice){
-    answers[current]=choice;
-    // 修正：更新按鈕狀態
-    document.querySelectorAll('#options button').forEach((btn, index) => {
-        btn.style.backgroundColor = index === choice ? '#2c3e50' : '#3498db';
-    });
+    answers[current]=choice;
+    // 修正：更新按鈕狀態
+    document.querySelectorAll('#options button').forEach((btn, index) => {
+        btn.style.backgroundColor = index === choice ? '#2c3e50' : '#3498db';
+    });
 
-    // 如果是最後一題，直接顯示結果
-    if(current===questions.length-1){
-        showResult();
-    }
-    // 否則，延遲後跳下一題
-    setTimeout(()=>{
-        if(current < questions.length-1){
-            current++;
-            showQuestion();
-        }
-    }, 200); // 延遲 200 毫秒
+    // 如果是最後一題，直接顯示結果
+    if(current===questions.length-1){
+        showResult();
+    }
+    // 否則，延遲後跳下一題
+    setTimeout(()=>{
+        if(current < questions.length-1){
+            current++;
+            showQuestion();
+        }
+    }, 200); // 延遲 200 毫秒
 }
 
 function prevQuestion(){
-    if(current>0){
-        current--;
-        showQuestion();
-    }
+    if(current>0){
+        current--;
+        showQuestion();
+    }
 }
 
 function nextQuestion(){
-    if(current<questions.length-1){
-        current++;
-        showQuestion();
-    }
+    if(current<questions.length-1){
+        current++;
+        showQuestion();
+    }
 }
 
 function updateProgress(){
-    const percent=Math.round(((current+1)/questions.length)*100);
-    const progressBar=document.getElementById("progress");
-    progressBar.style.width=percent+"%";
-    progressBar.textContent=percent+"%";
+    const percent=Math.round(((current+1)/questions.length)*100);
+    const progressBar=document.getElementById("progress");
+    progressBar.style.width=percent+"%";
+    progressBar.textContent=percent+"%";
 }
 
 function showResult(){
-    document.getElementById("quiz").style.display="none";
-    const resDiv=document.getElementById("result");
-    resDiv.style.display="block";
+    document.getElementById("quiz").style.display="none";
+    const resDiv=document.getElementById("result");
+    resDiv.style.display="block";
 
-    // 計算各維度分數
-    const dims = {E:0,I:0,S:0,N:0,T:0,F:0,J:0,P:0};
-    questions.forEach((q,i)=>{
-        // 確保問題有被回答
-        if(answers[i] !== undefined) {
-            const val = answers[i];
-            // A 選項 (index 0) 對應第一個字母 (E, S, T, J)
-            switch(q.dim){
-                case "EI": val===0?dims.E++:dims.I++; break;
-                case "SN": val===0?dims.S++:dims.N++; break;
-                case "TF": val===0?dims.T++:dims.F++; break;
-                case "JP": val===0?dims.J++:dims.P++; break;
-            }
-        }
-    });
+    // 計算各維度分數
+    const dims = {E:0,I:0,S:0,N:0,T:0,F:0,J:0,P:0};
+    questions.forEach((q,i)=>{
+        // 確保問題有被回答
+        if(answers[i] !== undefined) {
+            const val = answers[i];
+            // A 選項 (index 0) 對應第一個字母 (E, S, T, J)
+            switch(q.dim){
+                case "EI": val===0?dims.E++:dims.I++; break;
+                case "SN": val===0?dims.S++:dims.N++; break;
+                case "TF": val===0?dims.T++:dims.F++; break;
+                case "JP": val===0?dims.J++:dims.P++; break;
+            }
+        }
+    });
 
-    const mbti =
-        (dims.E>=dims.I?"E":"I") +
-        (dims.S>=dims.N?"S":"N") +
-        (dims.T>=dims.F?"T":"F") +
-        (dims.J>=dims.P?"J":"P");
+    const mbti =
+        (dims.E>=dims.I?"E":"I") +
+        (dims.S>=dims.N?"S":"N") +
+        (dims.T>=dims.F?"T":"F") +
+        (dims.J>=dims.P?"J":"P");
 
-    document.getElementById("mbti-type").textContent="你的 MBTI: "+mbti;
-    document.getElementById("mbti-desc").textContent=mbtiData[mbti];
+    document.getElementById("mbti-type").textContent="你的 MBTI: "+mbti;
+    document.getElementById("mbti-desc").textContent=mbtiData[mbti];
 
-    // --- 圓餅圖/長條圖計算邏輯 (根據 21 題的維度分布總分計算百分比) ---
-    if(myPieChart) {
-        myPieChart.destroy(); // 銷毀舊圖表，避免重複渲染問題
-    }
+    // --- 圓餅圖/長條圖計算邏輯 (根據 21 題的維度分布總分計算百分比) ---
+    if(myPieChart) {
+        myPieChart.destroy(); // 銷毀舊圖表，避免重複渲染問題
+    }
 
-    // 各維度的總題數：EI: 6, SN: 5, TF: 5, JP: 5
-    const totalEI = dims.E + dims.I; 
-    const totalSN = dims.S + dims.N; 
-    const totalTF = dims.T + dims.F; 
-    const totalJP = dims.J + dims.P; 
+    // 各維度的總題數：EI: 6, SN: 5, TF: 5, JP: 5
+    const totalEI = dims.E + dims.I; 
+    const totalSN = dims.S + dims.N; 
+    const totalTF = dims.T + dims.F; 
+    const totalJP = dims.J + dims.P; 
 
-    // 計算 I, N, F, P 的百分比 (I/E+I, N/S+N, F/T+F, P/J+P)
-    const pieData = [
-        totalEI > 0 ? Math.round((dims.I / totalEI) * 100) : 50, // I
-        totalSN > 0 ? Math.round((dims.N / totalSN) * 100) : 50, // N
-        totalTF > 0 ? Math.round((dims.F / totalTF) * 100) : 50, // F
-        totalJP > 0 ? Math.round((dims.P / totalJP) * 100) : 50, // P
-    ];
+    // 計算 I, N, F, P 的百分比 (I/E+I, N/S+N, F/T+F, P/J+P)
+    const pieData = [
+        totalEI > 0 ? Math.round((dims.I / totalEI) * 100) : 50, // I
+        totalSN > 0 ? Math.round((dims.N / totalSN) * 100) : 50, // N
+        totalTF > 0 ? Math.round((dims.F / totalTF) * 100) : 50, // F
+        totalJP > 0 ? Math.round((dims.P / totalJP) * 100) : 50, // P
+    ];
 
-    const ctx=document.getElementById("pieChart").getContext("2d");
-    myPieChart = new Chart(ctx,{ // 儲存新的 Chart 實例
-        type:'pie',
-        data:{
-            labels:['內向 (I)','直覺 (N)','情感 (F)','知覺 (P)'],
-            datasets:[{
-                data:pieData,
-                backgroundColor:['#2980b9','#27ae60','#f39c12','#d35400'] // 對應 I N F P 顏色
-            }]
-        },
-        options:{
-            responsive:true,
-            maintainAspectRatio: false, 
-            plugins:{
-                legend:{position:'bottom'},
-                tooltip:{callbacks:{label:function(context){return context.label+": "+context.raw+"%";}}}
-            },
-            animation:{animateScale:true, animateRotate:true, duration:1500}
-        }
-    });
+    const ctx=document.getElementById("pieChart").getContext("2d");
+    myPieChart = new Chart(ctx,{ // 儲存新的 Chart 實例
+        type:'pie',
+        data:{
+            labels:['內向 (I)','直覺 (N)','情感 (F)','知覺 (P)'],
+            datasets:[{
+                data:pieData,
+                backgroundColor:['#2980b9','#27ae60','#f39c12','#d35400'] // 對應 I N F P 顏色
+            }]
+        },
+        options:{
+            responsive:true,
+            maintainAspectRatio: false, 
+            plugins:{
+                legend:{position:'bottom'},
+                tooltip:{callbacks:{label:function(context){return context.label+": "+context.raw+"%";}}}
+            },
+            animation:{animateScale:true, animateRotate:true, duration:1500}
+        }
+    });
 
-    // 圖表解說
-    const descDiv = document.getElementById("chart-desc");
-    const labels = ['E/I','S/N','T/F','J/P'];
-    const meanings = [
-        'E/I: 外向 (E) / 內向 (I)',
-        'S/N: 感覺 (S) / 直覺 (N)',
-        'T/F: 思考 (T) / 情感 (F)',
-        'J/P: 判斷 (J) / 知覺 (P)'
-    ];
-    let html = "<h3>圖表解說（比例顯示如下）：</h3><ul>";
-    labels.forEach((label,i)=>{
-        html += `<li><b>${label}</b> (${meanings[i]})</li>`;
-    });
-    html += "</ul>";
-    descDiv.innerHTML = html;
+    // 圖表解說
+    const descDiv = document.getElementById("chart-desc");
+    const labels = ['E/I','S/N','T/F','J/P'];
+    const meanings = [
+        'E/I: 外向 (E) / 內向 (I)',
+        'S/N: 感覺 (S) / 直覺 (N)',
+        'T/F: 思考 (T) / 情感 (F)',
+        'J/P: 判斷 (J) / 知覺 (P)'
+    ];
+    let html = "<h3>圖表解說（比例顯示如下）：</h3><ul>";
+    labels.forEach((label,i)=>{
+        html += `<li><b>${label}</b> (${meanings[i]})</li>`;
+    });
+    html += "</ul>";
+    descDiv.innerHTML = html;
 
-    // --- 橫向條形圖修正 START ---
-    const barsDiv = document.getElementById("chart-bars");
-    barsDiv.innerHTML="";
-    const horizontalPairs = [['E','I'], ['S','N'], ['T','F'], ['J','P']];
-    const colors = {E:'#3498db', I:'#2980b9', S:'#2ecc71', N:'#27ae60', T:'#f1c40f', F:'#f39c12', J:'#e67e22', P:'#d35400'};
-    horizontalPairs.forEach(([a,b])=>{
-        const total = dims[a]+dims[b];
-        const aPct = total>0 ? Math.round((dims[a]/total)*100) : 50;
-        const bPct = 100 - aPct;
+    // --- 橫向條形圖修正 START ---
+    const barsDiv = document.getElementById("chart-bars");
+    barsDiv.innerHTML="";
+    const horizontalPairs = [['E','I'], ['S','N'], ['T','F'], ['J','P']];
+    const colors = {E:'#3498db', I:'#2980b9', S:'#2ecc71', N:'#27ae60', T:'#f1c40f', F:'#f39c12', J:'#e67e22', P:'#d35400'};
+    horizontalPairs.forEach(([a,b])=>{
+        const total = dims[a]+dims[b];
+        const aPct = total>0 ? Math.round((dims[a]/total)*100) : 50;
+        const bPct = 100 - aPct;
 
-        const labelDiv = document.createElement("div");
-        labelDiv.className="bar-label";
-        labelDiv.textContent = `${a}: ${aPct}%   ${b}: ${bPct}%`;
-        barsDiv.appendChild(labelDiv);
+        const labelDiv = document.createElement("div");
+        labelDiv.className="bar-label";
+        labelDiv.textContent = `${a}: ${aPct}%   ${b}: ${bPct}%`;
+        barsDiv.appendChild(labelDiv);
 
-        const bar = document.createElement("div");
-        bar.className="bar-container";
+        const bar = document.createElement("div");
+        bar.className="bar-container";
 
-        const barA = document.createElement("div");
-        barA.className="bar-segment";
-        barA.style.width = aPct + "%"; barA.style.backgroundColor = colors[a];
-        barA.innerHTML = aPct > 10 ? `<span>${a}</span>` : ''; 
+        const barA = document.createElement("div");
+        barA.className="bar-segment";
+        barA.style.width = aPct + "%"; barA.style.backgroundColor = colors[a];
+        barA.innerHTML = aPct > 10 ? `<span>${a}</span>` : ''; 
 
-        const barB = document.createElement("div");
-        barB.className="bar-segment";
-        barB.style.width = bPct + "%"; barB.style.backgroundColor = colors[b];
-        barB.innerHTML = bPct > 10 ? `<span>${b}</span>` : ''; 
+        const barB = document.createElement("div");
+        barB.className="bar-segment";
+        barB.style.width = bPct + "%"; barB.style.backgroundColor = colors[b];
+        barB.innerHTML = bPct > 10 ? `<span>${b}</span>` : ''; 
 
-        bar.appendChild(barA); bar.appendChild(barB);
-        barsDiv.appendChild(bar);
-    });
-    // --- 橫向條形圖修正 END ---
+        bar.appendChild(barA); bar.appendChild(barB);
+        barsDiv.appendChild(bar);
+    });
+    // --- 橫向條形圖修正 END ---
 
-    // 投資人格分析：根據MBTI結果，顯示相應的分析
-    const analysisGroups = document.querySelectorAll('#investment-analysis .analysis-group');
-    analysisGroups.forEach(group => {
-        const mbtiTypes = group.getAttribute('data-mbti').split(',');
-        if (mbtiTypes.includes(mbti)) {
-            group.style.display = 'block'; 
-        } else {
-            group.style.display = 'none'; 
-        }
-    });
+    // 投資人格分析：根據MBTI結果，顯示相應的分析
+    const analysisGroups = document.querySelectorAll('#investment-analysis .analysis-group');
+    analysisGroups.forEach(group => {
+        const mbtiTypes = group.getAttribute('data-mbti').split(',');
+        if (mbtiTypes.includes(mbti)) {
+            group.style.display = 'block'; 
+        } else {
+            group.style.display = 'none'; 
+        }
+    });
 
 }
 
 // 按鈕功能
 function restartQuiz(){
-    // 重新載入前先清理 Chart 實例
-    if(myPieChart) {
-        myPieChart.destroy();
-        myPieChart = null;
-    }
-    location.reload();
+    // 重新載入前先清理 Chart 實例
+    if(myPieChart) {
+        myPieChart.destroy();
+        myPieChart = null;
+    }
+    location.reload();
 }
 
 function downloadResult(){
-    // 確保 html2canvas 已載入
-    if (typeof html2canvas === 'function') {
-        html2canvas(document.getElementById("result")).then(canvas=>{
-            const link = document.createElement("a");
-            link.download = "MBTI_Result.png";
-            link.href = canvas.toDataURL();
-            link.click();
-        });
-    } else {
-        alert("下載功能需要 html2canvas 腳本支援，請確認腳本已正確載入。");
-    }
+    // 確保 html2canvas 已載入
+    if (typeof html2canvas === 'function') {
+        html2canvas(document.getElementById("result")).then(canvas=>{
+            const link = document.createElement("a");
+            link.download = "MBTI_Result.png";
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    } else {
+        alert("下載功能需要 html2canvas 腳本支援，請確認腳本已正確載入。");
+    }
 }
 function openLine(){ window.open("https://lin.ee/FmPO1Vz","_blank"); }
 
 // 初始化：一開始所有分析區塊應為隱藏
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('#investment-analysis .analysis-group').forEach(group => {
-        group.style.display = 'none';
-    });
+    document.querySelectorAll('#investment-analysis .analysis-group').forEach(group => {
+        group.style.display = 'none';
+    });
 });
     // 核心修復：使用 LINE@ ID 傳送帶有測驗結果的訊息
 function openLine() { 
